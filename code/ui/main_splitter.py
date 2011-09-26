@@ -1,0 +1,6 @@
+self.mainSplitter = QSplitter(Qt.Horizontal, self)
+self.setCentralWidget(self.mainSplitter)
+splitterLeft = QWidget()
+splitterRight = QWidget()
+splitterRight.setSizePolicy(QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding))
+self.mainSplitter.addWidget(splitterLeft)
