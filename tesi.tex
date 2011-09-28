@@ -709,6 +709,52 @@ Oltre che per caricare il codice delle librerie, questo metodo è stato utilizza
 
 Come si è visto in precedenza, il framework PyQt fornisce anche un modo più sofisticato per interagire con il contesto web dall'applicazione in Python, che permette di utilizzare oggetti in Python in maniera trasparente anche all'interno del codice Javascript.
 
+\subsection{Sincronizzazione tra richieste HTTP e flusso di simulazione}
+
+Uno dei problemi principali che ci si è trovati ad affrontare durante lo sviluppo dello strumento per il testing è costituito dalla necessità di sincronizzare il flusso di esecuzione delle azioni simulate con i tempi di caricamento delle pagine web da parte di QWebKit. 
+
+Sebbene sia stato appena descritto il metodo per attendere il completamento della rappresentazione del DOM prima di eseguire codice Javascript, esso non risolve il problema di stabilire la tempistica corretta con la quale far eseguire le azioni registrate al simulatore. E' infatti la parte di applicazione in Python che si occupa di pilotare il simulatore, stabilendo il momento in cui esso deve eseguire una determinata azione. Tale operazione deve essere iniziata però solamente quando la classe \verb|QWebPage| ha terminato il caricamento della pagina, poiché in caso contrario il codice Javascript da iniettare per eseguire materialmente la simulazione degli eventi e delle asserzioni avrebbe un comportamento potenzialmente non prevedibile. 
+
+Per garantire la sincronizzazione temporale dei vari passi della simulazione, la classe \verb|Simulator| implementa il metodo \verb|wait_load|, mostrato nell'estratto seguente:
+
+\lstinputlisting[caption=Gestione della sincronia da parte del simulatore]{code/simulator/wait_load.py} 
+
+Per sospendere l'esecuzione della simulazione fino al completo caricamento della pagina corrente viene utilizzato un ciclo nel quale si controlla periodicamente il valore assunto della proprietà \verb|_load_status|. Il ciclo viene interrotto quando il valore assunto indica il termine della fase di caricamento, oppure quando scade un timeout, onde evitare che il tempo di attesa sia indefinito qualora si verifichino problemi. 
+
+Il valore della variabile di stato \verb|_load_status| viene modificato in maniera asincrona dallo slot associato al segnale \verb|loadFinished()|, emesso dal componente del browser. Una volta ricevuto l'evento, la variabile di stato viene impostata con valore nullo, per indicare che non è in corso il caricamento di alcuna pagina.
+
+Nel caso in cui il metodo di attesa venga invocato senza che sia effettivamente in corso un caricamento, il ciclo non viene eseguito.
+
+La soluzione adottata non ha presentato particolari problemi di prestazioni pur implementando di fatto una forma di "busy form of waiting", poiché i tempi di attesa sono generalmente molto brevi e sono comunque controllati da un timeout. Una soluzione più elegante da questo punto di vista potrebbe contemplare l'utilizzo della programmazione concorrente mediante thread, che aggiungerebbe però un ulteriore livello di complessità all'applicazione senza aggiungere nulla però agli scopi finali.
+
+L'effetto collaterale indesiderato consiste però nel fatto che, utilizzando il ciclo di attesa, l'interfaccia dell'applicazione smette di essere reattiva all'interazione con l'utente. Per superare questo ostacolo, si è fatto uso del metodo \verb|QCoreApplication.processEvents|, con il quale si impone manualmente al processo di processare gli eventi in coda in arrivo dal sistema operativo sottostante. Normalmente il loop degli eventi, tipico di ogni applicazione dotata di interfaccia, viene gestito internamente dal framework Qt, ma in questo caso è stato indispensabile interagirci direttamente.
+
+\subsection{Simulazione e richieste AJAX}
+
+La questione riguardante la sincronizzazione risulta ancora più delicata se decide di tenere in considerazione anche le richieste AJAX che possono essere eseguite dall'applicazione web. In questo caso, prima di simulare le azioni e le asserzioni successive si è costretti ad individuare una strategia per stabilire con certezza quando le eventuali richieste AJAX sono terminate, per poter poi proseguire con il flusso della simulazione. 
+
+La maggiore complessità di questo problema rispetto al precedente risiede nella natura asincrona delle richieste AJAX. A differenza di quanto avviene per quest'ultime, il caricamento di una nuova pagina è un evento prevedibile durante il corso della simulazione, ed è pertanto gestibile in maniera efficace grazie al segnale \verb|loadFinished| emesso dalla classe \verb|QWebPage|. 
+
+Poiché oramai la tecnologia AJAX trova impiego nella maggioranza delle applicazioni web recenti, è sembrato opportuno che lo strumento sviluppato supportasse il test di applicazioni che fanno uso di richieste asincrone, ricordando che tra gli obiettivi posti giocano un ruolo importante la semplicità d'uso e che l'utilizzatore per ipotesi può non avere competenze sulle tecnologie web utilizzate. 
+
+A tale proposito si consideri questo semplice scenario d'uso: l'utente clicca su di un link e dietro le quinte l'applicazione web invia una richiesta AJAX al server. Il server risponde con un messaggio, ed il contenuto del DIV sottostante al link viene aggiornato con il messaggio ricevuto, senza che la pagina venga ricaricata. A questo punto si desidera definire un test che verifichi il corretto funzionamento dell'applicazione web in base a questo scenario. 
+
+Affinché il test sia realizzabile, è necessario che il simulatore attenda il completamento della richiesta AJAX prima di eseguire l'asserzione definita dall'utente sul contenuto del messaggio visualizzato dopo il click sul link. Se ciò non avvenisse, il test fallirebbe solamente a causa delle tempistiche con cui viene effettuato.
+
+Sono da tenere poi presenti le seguenti condizioni aggiuntive. In primo luogo, non è possibile prevedere a priori il tempo impiegato per completare la richiesta asincrona, poiché esso dipende da fattori esterni non controllabili, come il tempo di risposta del server, la dimensione della risposta e la congestione della rete. In aggiunta, differenti richieste AJAX possono essere originate in parallelo dalla stessa pagina, siccome potenzialmente l'utente può continuare ad interagire con l'interfaccia dell'applicazione web mentre questa attende il completamento di una precedente richiesta asincrona.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=\textwidth]{images/ajax_sync.png}
+\caption{Sequence diagram per richieste AJAX parallele}
+\label{fig:ajaxSequence}
+\end{center}
+\end{figure}
+
+Nella figura ~\ref{fig:ajaxSequence} viene rappresentato un diagramma di sequenza che illustra la situazione descritta fino ad ora, con la corretta sequenza temporale in cui il simulatore deve effettuare le asserzioni nel caso in cui le richieste parallele ricevano risposte sfasate rispetto all'ordine di partenza.  
+
+
+
 
 \end{document}
 
