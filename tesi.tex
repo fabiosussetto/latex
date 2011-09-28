@@ -639,7 +639,75 @@ Siccome la visita di un determinato indirizzo viene considerata come un evento i
 
 Il widget di tipo QWebView, che visualizza effettivamente il contenuto delle pagine web, non viene istanziato e gestito direttamente dal modulo principale, come avviene per tutti gli altri widget. Si è infatti scelto di incapsularne le funzionalità all'interno del modulo simulator, descritto in seguito nel dettaglio. Tutta la parte relativa alla simulazione e all'interazione con l'applicazione web viene implementata attraverso i metodi della classe QWebPage e QWebView, pertanto dall'esterno il modulo simulator viene visto come un oggetto opaco. 
 
-Come si è visto però il posizionamento dei widget nell'interfaccia è responsabilità esclusivamente della classe MainWindow. Per questo motivo, in essa è possibile ottenere un riferimento al widget del browser attraverso il metodo simulator::getWidget(). 
+Come si è visto però il posizionamento dei widget nell'interfaccia è responsabilità esclusivamente della classe MainWindow. Per questo motivo, da essa è possibile ottenere un riferimento al componente del browser attraverso il metodo simulator::getWidget(). Una volta fatto ciò, il widget di classe QWebView.
+
+Al di sotto del browser sono state posizionate una label per mostrare lo stato di caricamento delle pagine da visualizzare ed una per mostrare all'utente il selettore CSS selezionato tramite l'apposito strumento. Queste informazioni sono gestire dal modulo simulator, e per poterle reperire dall'esterno si è sfruttato il sistema di gestione degli eventi offerto da Qt. Grazie ad esso, la classe Simulator definisce ed emette svariati segnali personalizzati, ai quali sono connessi gli slot definiti nella classe MainWindow. Quest'ultima viene quindi notificata quando il simulatore esegue azioni di interesse per l'interfaccia grafica.
+
+\lstinputlisting[caption=Comunicazione ad eventi tra MainWindow e Simulator ]{code/ui/loading_label.py}
+
+Nel codice mostrato vengono connessi i segnali emessi dalla classe Simulator con i metodi di callback della classe MainWindow. In particolare, in corrispondenza dell'evento di inizio caricamento di una pagina, viene mostrata nell'interfaccia la label che notifica all'utente questo stato di attesa, poiché questa operazione può richiedere un certo periodo di tempo, a seconda della velocità di connessione.  
+
+Sempre in questo estratto di codice, si può osservare la sintassi per ricevere segnali con parametri. In questo caso, il simulatore aggiunge all'evento di selezione di un elemento un parametro di tipo PyQt\_PyObject, contenente un'instanza della classe PickedData che incapsula le informazioni sulla selezione dell'utente. Questa particolare sintassi per il tipo del parametro da ricevere è dovuta alla conversione necessaria tra i tipi del framework Qt, definiti in C++, e i tipi del framework PyQt, definiti in Python. 
+
+\subsubsection{La lista delle azioni}
+
+La lista delle azioni è stata collocata nel pannello destro del widget QSplitter principale. Per realizzarla, si è scelto di utilizzare il componente QTreeView, il quale visualizza i dati tenendo conto di una gerarchia ad albero tra gli elementi da mostrare. I livelli intermedi possono essere contratti ed espansi, in modo che l'utente possa scegliere di quali informazioni mostrare i dettagli. 
+
+Se la modalità di registrazione è attiva, in questo spazio vengono mostrate le azioni compiute dall'utente all'interno della pagina web che sono significative ai fini della simulazione, come il click sui link, la compilazione di campi testuali, eccetera. In aggiunta, tra un'azione e l'altra è possibile inserire le assertion, ossia particolari condizioni che il simulatore deve verificare durante l'esecuzione del test. Quest'ultime sono di fatto equiparabili in un certo senso alle azioni compiute dall'utente, in quando automatizzano i controlli visivi che dovrebbero essere effettuati per accertarsi del corretto funzionamento. Per questo motivo, sono presentate nella stessa porzione di interfaccia delle azioni, nell'ordine cronologico in cui sono state definite.
+
+Per implementare la vista ad albero si è ricorsi al pattern MVC proposto dal framework PyQt, pertanto è stato necessario definire una classe model apposita che funge da tramite tra la struttura dati interna, nella quale le azioni registrate sono memorizzate, e la view, che deve mostrare tali dati secondo certi criteri nell'interfaccia. Questa implementazione verrà descritta più nel dettaglio in seguito, all'interno del paragrafo dedicato al modulo actions.
+
+\lstinputlisting[caption=Costruzione della vista ad albero e connessione dei segnali ]{code/ui/action_tree.py}
+
+Come si può osservare, attraverso il metodo setModel della classe QTreeView viene indicato al framework quale classe si intende adoperare come model per la vista istanziata.
+
+Nelle righe successive vengono poi creati due pulsanti di tipo QToolButton e collegati i relativi eventi di click con i metodi che comunicano al simulatore di inziare la riproduzione delle azioni correntemente memorizzate, oppure di cancellare le azioni evidenziate.
+
+Per quest'ultimo scopo nel metodo \verb|_onRemoveActionClicked| è necessario accedere direttamente al model impostato per la vista ad albero, poiché è questa classe che si occupa di gestire i dati, secondo il pattern MVC. Le azioni non vengono infatti rimosse direttamente richiamando un metodo della classe QTreeView. Sarà invece il model che notificherà la view di un cambiamento avvenuto nei dati sottostanti e ciò provocherà un'aggiornamento delle informazioni mostrate nell'interfaccia. In questo modo è garantita la sincronia dei dati in memoria con quelli presentati a video, senza che l'applicazione possa trovarsi in uno stato inconsistente sotto questo aspetto.
+
+\subsubsection{La barra degli strumenti}
+
+Creare una tipica barra degli strumenti è relativamente semplice all'interno del framework Qt: è sufficiente infatti richiamare il metodo addToolBar della classe QMainWindow, che come visto prevede già lo spazio per ospitarla. I vari pulsanti nella barra sono invece rappresentati da oggetti di tipo QAction, ai quali viene assegnata un'icona. 
+
+Gli oggetti QAction non sono semplici pulsanti, ma rappresentano le azioni principali eseguibili dall'applicazione. Tramite appositi metodi si definiscono vari attributi di queste azioni, tra cui ad esempio le combinazioni di tasti che le attivano. La classe QAction viene definita in Qt per uniformare e centralizzare la gestione di queste azioni, che normalmente è possibile compiere in maniere differenti. Spesso infatti azioni come l'apertura o il salvataggio di un file sono raggiungibili sia dalla barra degli strumenti, sia dal menù principale dell'applicazione. Siccome l'azione che l'utente si aspetta di eseguire è in effetti la stessa, è opportuno che dal lato del codice venga utilizzata la stessa entità, in modo da evitare una possibile duplicazione.
+
+I file di immagine per le icone utilizzate nell'applicazione sono gestiti tramite un file esterno in formato XML, nel quale indicare le risorse impiegate con i percorsi ed i nomi dei file. Per ogni risorsa è anche possibile specificare un identificativo utilizzabile nell'applicazione per reperire il file in maniera più agevole e leggibile, senza specificarne il percorso fisico. Per poter usare questa lista di risorse, è necessario compilare il file XML in codice Python tramite l'utility \verb|pyrcc4| ed poi importarlo nell'applicazione come fosse un comune modulo in Python.
+
+Siccome la creazione di un oggetto \verb|QAction| è un'operazione comune e richiede un discreto numero di linee di codice per assegnare l'icona, il testo di descrizione e la combinazione di tasti, è stato creato un metodo statico apposta nella classe \verb|Gui| del package \verb|Utilities|.
+
+\section{Modulo simulator}
+
+Il modulo \verb|Simulator| costituisce il cuore dell'applicazione, poiché raggruppa le classi utilizzate per interagire con l'applicazione web da testare. La classe \verb|Simulator| al suo interno sfrutta la tecnologia QWebKit e ne pilota l'interfaccia per gli scopi della simulazione. Dall'esterno quindi non è necessario interagire direttamente con il browser, poiché la classe Simulator ne astrae ed estende le funzionalità, introducendo i concetti di azione dell'utente, di asserzione e di simulazione.
+
+Il componente QWebKit presenta un'architettura altamente modulare, che permette di riutilizzare singolarmente le diverse parti che lo compongono, in maniera efficiente. Nello specifico, è la classe \verb|QWebPage| che gestisce il caricamento delle pagine, la cronologia degli indirizzi visitati, le strategie di memorizzazione dei cookies, ed altri aspetti di alto livello. Ogni QWebPage contiene come minimo un oggetto di tipo \verb|QWebFrame|, che modella invece un frame definito tramite i tag HTML \verb|<frame>| o \verb|<iframe>|. Attraverso un \verb|QWebFrame| si può poi accedere alla rappresentazione del DOM, selezionando e modificando i nodi presenti, modellati a loro volta dalla classe QWebElement. 
+
+Grazie alla modularità delle due classi appena descritte, si può evitare l'overhead dovuto al rendering vero e proprio della pagina web se questo non è necessario ai fini dell'applicazione (ad esempio poiché è sufficiente accedere alle informazioni nel DOM). Per visualizzare sullo schermo la pagina web è infatti disponibile l'apposita classe \verb|QWebView|, che essendo discendente della classe |QWidget| viene trattata come un qualsiasi altro componente dell'interfaccia grafica.
+
+\subsubsection{Iniezione di codice Javascript nelle pagine web}
+
+Per i motivi descritti nel capitolo riguardante le tecnologie utilizzate, si è scelto di accedere al DOM della pagina e di intercettare gli eventi dovuti all'interazione con l'utente tramite la libreria jQuery. Tutto il codice realizzato in javascript deve quindi poter essere iniettato all'interno della pagina web che viene caricata dal simulatore prima di poterne utilizzare le funzionalità. 
+
+La classe QWebFrame fornisce un metodo apposta per questo scopo, chiamato \verb|evaluateJavaScript|. Come indica il nome, esso accetta come parametro una stringa di testo contenente del codice javascript, che viene eseguito nel contesto del frame specficato. Il valore di ritorno del metodo corrisponde al valore restituito dall'esecuzione dell'ultima istruzione Javascript.
+
+Nel caso dell'applicazione sviluppata, viene ipotizzato l'utilizzo del solo frame principale. Questo vincolo ha semplificato la fase di iniezione del codice nelle pagine web, senza però limitare nel complesso le funzionalità dello strumento. Inoltre oggi l'uso dei frame all'interno delle pagine web viene fortemente sconsigliato poiché ne danneggiano l'usabilità e l'accessiblità, tant'è che i tag relativi all'inserimento dei frame sono stati rimossi dalla nuova specifica per l'HTML5 [http://www.w3.org/TR/html5-diff/\#absent-elements]. 
+
+All'interno del costruttore della classe Simulator vengono letti i file che contengono la libreria jQuery ed i componenti dell'applicazione sviluppati in Javascript, ossia il registratore degli eventi, il generatore dei selettori CSS e lo strumento per selezionare gli elementi della pagina web (\verb|Picker|). Il contenuto di questi file viene quindi iniettato in ogni pagina web nel momento in cui il componente \verb|QWebPage| segnala che il caricamento della pagina è completata tramite l'apposito  \verb|signal|. 
+
+Prima di iniettare effettivamente il codice Javascript, esso viene manipolato per evitare potenziali conflitti con il codice Javascript che potrebbe essere già presente nella pagina corrente. Per evitare conflitti tra i nomi delle variabili jQuery definisce un metodo apposito chiamato \verb|noConflict| che consente di usare questa libreria insieme ad altre che utilizzano il nome di variabile \verb|$| come alias per l'oggetto principale (succede ad esempio nel caso del framework Mootools [http://mootools.net/]). 
+
+All'interno della classe Simulator viene perciò definito un alias speciale per la variabile di jQuery \verb|$|, che viene sostituito a questo simbolo in maniera automatica prima di eseguire il codice Javascript nel contesto della pagina web. Questo passaggio è dimostrato nel seguente estratto di codice:
+
+\lstinputlisting[caption=Caricamento della libreria jQuery con modalità no-conflict]{code/ui/jquery_no_conflict.py}
+
+Un altro aspetto da tenere in considerazione per il corretto funzionamento del codice Javascript iniettato interessa le tempistiche con le quali esso si trova a dover interagire con il DOM della pagina. Se il codice si trova infatti ad accedere al DOM mentre la costruzione dell'albero da parte del browser non è ancora completata, potrebbero verificarsi comportamenti inattesi poiché gli ultimi elementi della pagina potrebbero non essere ancora effettivamente stati aggiunti alla rappresentazione in memoria del DOM. La manifestazione tipica di questo fenomeno consiste quindi nella mancata selezione di alcuni elementi, considerati inesistenti. 
+
+Siccome l'istante in cui viene terminato il caricamento della pagina a livello di rete non coincide necessariamente con l'istante in cui la rappresentazione in memoria del DOM è stata completata, per superare questo potenziale problema non si può fare affidamento semplicemente sul segnale \verb|loadFinished| emesso dalla classe \verb|QWebPage|. Fortunatamente, il framework jQuery fornisce una semplice soluzione alla questione grazie al metodo  \verb|$.ready()|. La funzione anonima passata a questo metodo, contenente il codice da eseguire, viene infatti eseguita solamente quando il caricamento del DOM è stato completato.
+
+Oltre che per caricare il codice delle librerie, questo metodo è stato utilizzato anche per realizzare la parte di simulazione vera e propria, che viene descritta più dettagliatamente in seguito, nel paragrafo dedicato al package \verb|actions|. Per ora è sufficiente dire che le azioni dell'utente che sono state registrate, come il click su di un link, vengono rieseguite facendo eseguire all'interprete Javascript il codice apposito, che riproduce l'evento come se fosse stato generato dall'utente.
+
+\subsubsection{Comunicazione tra Python e Javascript}
+
+Come si è visto in precedenza, il framework PyQt fornisce anche un modo più sofisticato per interagire con il contesto web dall'applicazione in Python, che permette di utilizzare oggetti in Python in maniera trasparente anche all'interno del codice Javascript.
 
 
 \end{document}
