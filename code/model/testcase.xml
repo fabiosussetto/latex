@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<actions>
+  <useraction label="Visit 'http://wptesi/wp_3-1-3/wp-admin'" type="Visit">
+    <url value="http://wptesi/wp_3-1-3/wp-admin" />
+  </useraction>
+  <useraction label="Username" type="Fill">
+    <selector path="#user_login" />
+    <content value="admin" />
+  </useraction>
+  <useraction label="Password" type="Fill">
+    <selector path="#user_pass" />
+    <content value="cactus" />
+  </useraction>
+  <useraction label="Log In" type="ClickButton">
+    <selector path="#wp-submit" />
+  </useraction>
+  <assertion type="AssertContent">
+    <selector path="#wpbody-content h2" />
+    <content value="Dashboard" />
+  </assertion>
+  <useraction label="Add New" type="ClickLink">
+    <selector path="#menu-posts a:icontains(add new)" />
+  </useraction>
+  <assertion type="AssertContent">
+    <selector path="#wpbody-content h2" />
+    <content value="Add New Post" />
+  </assertion>
+  <assertion type="AssertContent">
+    <selector path="#wphead" />
+    <content value="foobar" />
+  </assertion>
+</actions>
