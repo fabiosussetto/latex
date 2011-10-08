@@ -1,0 +1,69 @@
+\BOOKMARK [0][-]{chapter.1}{Titolo del primo capitolo}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Una panoramica sui livelli di testing}{chapter.1}% 2
+\BOOKMARK [2][-]{subsection.1.1.1}{Unit testing}{section.1.1}% 3
+\BOOKMARK [2][-]{subsection.1.1.2}{Integration testing}{section.1.1}% 4
+\BOOKMARK [2][-]{subsection.1.1.3}{Functional testing}{section.1.1}% 5
+\BOOKMARK [2][-]{subsection.1.1.4}{Acceptance testing}{section.1.1}% 6
+\BOOKMARK [1][-]{section.1.2}{Il testing delle interfacce utente}{chapter.1}% 7
+\BOOKMARK [2][-]{subsection.1.2.1}{Unit testing}{section.1.2}% 8
+\BOOKMARK [0][-]{chapter.2}{Il testing delle interfacce grafiche}{}% 9
+\BOOKMARK [1][-]{section.2.1}{Introduzione}{chapter.2}% 10
+\BOOKMARK [1][-]{section.2.2}{Obiettivi dei test per interfacce grafiche}{chapter.2}% 11
+\BOOKMARK [1][-]{section.2.3}{Problematiche}{chapter.2}% 12
+\BOOKMARK [2][-]{subsection.2.3.1}{Complessit\340 intrinseca del sistema}{section.2.3}% 13
+\BOOKMARK [2][-]{subsection.2.3.2}{Registrazione e riproduzione dei dati in ingresso}{section.2.3}% 14
+\BOOKMARK [2][-]{subsection.2.3.3}{Regression test}{section.2.3}% 15
+\BOOKMARK [2][-]{subsection.2.3.4}{Definizione di metriche}{section.2.3}% 16
+\BOOKMARK [1][-]{section.2.4}{Il testing delle interfacce nelle applicazioni web}{chapter.2}% 17
+\BOOKMARK [2][-]{subsection.2.4.1}{Differenze tecnologiche}{section.2.4}% 18
+\BOOKMARK [2][-]{subsection.2.4.2}{Differenze ed analogie nell'interazione con l'utente}{section.2.4}% 19
+\BOOKMARK [0][-]{chapter.3}{Una panoramica sugli strumenti esistenti}{}% 20
+\BOOKMARK [1][-]{section.3.1}{Selenium}{chapter.3}% 21
+\BOOKMARK [2][-]{subsection.3.1.1}{Selenium IDE}{section.3.1}% 22
+\BOOKMARK [2][-]{subsection.3.1.2}{Selenium WebDriver}{section.3.1}% 23
+\BOOKMARK [1][-]{section.3.2}{Windmill}{chapter.3}% 24
+\BOOKMARK [1][-]{section.3.3}{Watir}{chapter.3}% 25
+\BOOKMARK [1][-]{section.3.4}{Sahi}{chapter.3}% 26
+\BOOKMARK [0][-]{chapter.4}{Tool}{}% 27
+\BOOKMARK [1][-]{section.4.1}{Obiettivi}{chapter.4}% 28
+\BOOKMARK [2][-]{subsection.4.1.1}{Facilit\340 di utilizzo}{section.4.1}% 29
+\BOOKMARK [2][-]{subsection.4.1.2}{Robustezza dei test}{section.4.1}% 30
+\BOOKMARK [2][-]{subsection.4.1.3}{Strumento integrato}{section.4.1}% 31
+\BOOKMARK [2][-]{subsection.4.1.4}{Compatibilit\340 con applicazioni esistenti}{section.4.1}% 32
+\BOOKMARK [0][-]{chapter.5}{Tecnologie utilizzate}{}% 33
+\BOOKMARK [1][-]{section.5.1}{Sviluppo dell'interfaccia grafica}{chapter.5}% 34
+\BOOKMARK [2][-]{subsection.5.1.1}{Qt framework}{section.5.1}% 35
+\BOOKMARK [2][-]{subsection.5.1.2}{Python e PyQt}{section.5.1}% 36
+\BOOKMARK [1][-]{section.5.2}{Architettura del framework Qt}{chapter.5}% 37
+\BOOKMARK [2][-]{subsection.5.2.1}{Gestione degli eventi}{section.5.2}% 38
+\BOOKMARK [2][-]{subsection.5.2.2}{Il paradigma MVC in PyQt}{section.5.2}% 39
+\BOOKMARK [1][-]{section.5.3}{Il componente QtWebKit}{chapter.5}% 40
+\BOOKMARK [2][-]{subsection.5.3.1}{WebKit rendering engine}{section.5.3}% 41
+\BOOKMARK [2][-]{subsection.5.3.2}{Interazione tra QtWebKit ed il DOM}{section.5.3}% 42
+\BOOKMARK [2][-]{subsection.5.3.3}{QtWebKit Bridge}{section.5.3}% 43
+\BOOKMARK [1][-]{section.5.4}{jQuery}{chapter.5}% 44
+\BOOKMARK [2][-]{subsection.5.4.1}{Un confronto tra i selettori CSS ed XPath}{section.5.4}% 45
+\BOOKMARK [0][-]{chapter.6}{Architettura dello strumento di testing}{}% 46
+\BOOKMARK [1][-]{section.6.1}{Modulo main.pyw}{chapter.6}% 47
+\BOOKMARK [2][-]{subsection.6.1.1}{Costruzione dell'interfaccia grafica}{section.6.1}% 48
+\BOOKMARK [1][-]{section.6.2}{Modulo simulator}{chapter.6}% 49
+\BOOKMARK [2][-]{subsection.6.2.1}{Sincronizzazione tra richieste HTTP e flusso di simulazione}{section.6.2}% 50
+\BOOKMARK [2][-]{subsection.6.2.2}{Simulazione e richieste AJAX}{section.6.2}% 51
+\BOOKMARK [2][-]{subsection.6.2.3}{Riproduzione delle azioni}{section.6.2}% 52
+\BOOKMARK [1][-]{section.6.3}{Modulo actions}{chapter.6}% 53
+\BOOKMARK [2][-]{subsection.6.3.1}{Implementazione del Model nel paradigma MVD}{section.6.3}% 54
+\BOOKMARK [2][-]{subsection.6.3.2}{Salvataggio dei test in formato XML}{section.6.3}% 55
+\BOOKMARK [2][-]{subsection.6.3.3}{La registrazione delle azioni utente}{section.6.3}% 56
+\BOOKMARK [2][-]{subsection.6.3.4}{DOM event model}{section.6.3}% 57
+\BOOKMARK [2][-]{subsection.6.3.5}{Registrazione degli eventi}{section.6.3}% 58
+\BOOKMARK [2][-]{subsection.6.3.6}{Riproduzione degli eventi}{section.6.3}% 59
+\BOOKMARK [0][-]{chapter.7}{Algoritmi di selezione degli elementi}{}% 60
+\BOOKMARK [1][-]{section.7.1}{Considerazioni iniziali e prerequisiti}{chapter.7}% 61
+\BOOKMARK [2][-]{subsection.7.1.1}{Validazione della sintassi HTML}{section.7.1}% 62
+\BOOKMARK [2][-]{subsection.7.1.2}{Utilizzo dei tag HTML in maniera semantica}{section.7.1}% 63
+\BOOKMARK [1][-]{section.7.2}{Idee ed ipotesi di partenza}{chapter.7}% 64
+\BOOKMARK [2][-]{subsection.7.2.1}{Schemi tipici di variazioni nel DOM}{section.7.2}% 65
+\BOOKMARK [2][-]{subsection.7.2.2}{L'importanza dell'attributo id}{section.7.2}% 66
+\BOOKMARK [2][-]{subsection.7.2.3}{L'attributo role}{section.7.2}% 67
+\BOOKMARK [2][-]{subsection.7.2.4}{Selettori per elementi particolari}{section.7.2}% 68
+\BOOKMARK [2][-]{subsection.7.2.5}{Descrizione dell'algoritmo}{section.7.2}% 69

@@ -9,6 +9,9 @@
 
 \usepackage{color}
 \usepackage{textcomp}
+
+\usepackage{hyperref}
+
 \definecolor{listinggray}{gray}{0.2}
 \definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
 \lstset{
@@ -1001,6 +1004,186 @@ Per inviare all'applicazione eventi definiti dal framework Qt si possono utilizz
 
 L'attenzione si è quindi spostata sul modulo \verb|QTest| del framework, concepito per facilitare l'esecuzione di test sulle interfacce grafiche realizzate con Qt. Per questo scopo il modulo offre dei metodi per la simulazione degli eventi, che hanno consentito di aggirare agevolmente gli ostacoli incontrati durante il primo approccio al problema.
 
+Nello specifico sono stati utilizzati principalmente i metodi \verb|QTest:.mouseMove| e \verb|QTest:.mouseClick| per simulare le interazioni principali con il componente \verb|QWebView|, come mostrato nel listato ~\ref{code:nativeClickLink}. In questo estratto si può osservare come l'azione di click su di un link venga riprodotta simulando prima lo spostamento del mouse sul nodo del DOM e poi l'effettivo click.
+
+\lstinputlisting[language=Python, caption={Implementazione nativa dell'azione ClickLink}, label=code:nativeClickLink]{code/actions/click_link_native.py}
+
+Come primo parametro viene indicata l'istanza di classe \verb|QWidget| a cui deve essere recapitata per prima la notifica dell'evento. L'altro parametro comune rappresenta invece le coordinate dello schermo alle quali si deve verificare l'evento simulato, indicate tramite un oggetto di classe \verb|QPoint|.
+
+Per ricavare le coordinate del nodo del DOM destinatario dell'evento si è seguito il seguente approccio. Il simulatore esegue del codice Javascript che richiama il metodo \verb|jQuery.offset| sul nodo selezionato, il quale restituisce l'ascissa e l'ordinata dell'elemento in base alla distanza dal margine sinistro e da quello superiore della pagina. Successivamente viene istanziato un oggetto di classe \verb|QPoint| con i valori ottenuti. 
+
+A questo punto è necessario convertire le coordinate dell'elemento relative al componente \verb|QWebView| al sistema sistema di riferimento della finestra applicativa, in modo da identificare correttamente la posizione utilizzata per simulare l'evento. 
+
+\lstinputlisting[language=Python, caption={Coordinate del nodo DOM interessato dalla simulazione}, label=code:elementPosition]{code/actions/element_position.py}
+
+\chapter{Algoritmi di selezione degli elementi}
+
+\section{Considerazioni iniziali e prerequisiti}
+
+Al momento della registrazione delle azioni è indispensabile poter generare un selettore CSS che permetta di identificare in maniera univoca l'elemento interessato dall'interazione, per potervi accedere in fase di riproduzione. In aggiunta, il selettore individuato dovrebbe garantire una certa flessibilità ai cambiamenti che possono avvenire nel DOM durante il successivo sviluppo dell'applicazione, per non ritrovarsi con un insieme di test troppo fragili.
+Allo stesso tempo però è necessario raggiungere un compromesso accettabile tra la resistenza alle variazioni e l'accuratezza delle verifiche, in modo che queste ultime permettano effettivamente di rivelare i problemi che si presentano.
+
+La soluzione proposta parte da alcune considerazioni di partenza, basate principalmente sulla propria esperienza e sui criteri generali considerati come migliore prassi nella realizzazione di pagine web dinamiche, descritte di seguito. Tali punti non sono da considerarsi come vincoli necessari per il funzionamento dell'algoritmo, ma piuttosto come un'insieme di condizioni sotto le quali esso può esprime il suo funzionamento ottimale. 
+
+\subsection {Validazione della sintassi HTML}
+
+I risultati dell'algoritmo sono da considerarsi prevedibili solamente nel caso che il codice HTML della pagina web su cui esso viene applicato sia valido secondo la DTD dichiarata. Questa condizione presuppone che l'albero del DOM possa essere costruito in maniera corretta e che vengano eliminate possibili ambiguità, difficili da gestire in fase di analisi. I browser tentano di correggere gli errori di sintassi più comuni e spesso i problemi non sono così evidenti ad una semplice verifica visuale del contenuto mostrato. 
+
+In particolare, l'algoritmo sfrutta in maniera intensiva la presenza e la distribuzione del l'attributo id per determinare quali elementi del DOM siano meno soggetti a potenziali cambiamenti. E' quindi importante che l'attributo id venga utilizzato in maniera corretta, secondo le specifiche del W3C, evitandone per esempio la duplicazione. Se per generare le pagine si utilizzano sistemi di gestione dei contenuti (CMS) spesso non si ha il controllo completo sugli attributi id assegnati ai nodi, perciò in tali casi è bene assicurarsi che l'attributo venga adoperato in maniera adeguata.
+
+Per ottenere i migliori risultati è quindi sempre consigliabile assicurarsi di validare il codice HTML delle pagine sotto esame attraverso uno strumento come il W3C Validator [http://validator.w3.org]. Le specifiche dettate da questa organizzazione sono state infatti utilizzate per stabilire un'insieme omogeneo di regole su cui fondare la strategia dell'algoritmo.
+
+Se questo requisito non viene rispettato, potrebbe essere possibile perdere molti dei vantaggi forniti dall'algoritmo in termini di flessiblità ai cambiamenti strutturali delle pagine.
+
+\subsection {Utilizzo dei tag HTML in maniera semantica}
+
+Ogni tipologia di tag HTML disponibile è stato pensato per trasmettere un significato semantico preciso ai contenuti della pagina, e non solamente per regolarne l'aspetto con cui esso viene presentato. La scrittura di codice HTML semantico è oramai diventata una prassi consolidata nello sviluppo di applicazioni web moderne poiché i benefici ottenibili sono molteplici ed interessano ambiti diversi, dalla mantenibilità del codice all'indicizzazione sui motori di ricerca, passando per l'accessiblità.
+
+L'algoritmo proposto cerca di sfruttare per quanto possibile il significato semantico attribuito ai vari elementi della pagina per reperire ulteriori informazioni e stabilire un selettore che tenga in considerazione le porzioni di pagina soggette a modifiche con maggiore probabilità.
+
+Un uso attento della semantica implica generalmente anche la presenza di un minor numero di tag HTML nella pagina, ossia di un albero del DOM più compatto. Ciò favorisce evidentemente la robustezza dei test sull'interfaccia, sia perché riduce il numero di componenti che possono variare, sia perché i selettori generati sono più semplici ed effettivi. Per gli stessi motivi è opportuno affidare quanto più possibile ai fogli di stile la presentazione del contenuto, senza ricorrere ove non necessario all'aggiunta di codice di markup aggiuntivo per fini prettamente grafici.
+
+In merito a questo criterio non possono esistere regole deterministiche e schemi prefissati da seguire. E' quindi responsabilità di chi si occupa dello sviluppo dell'interfaccia utente dell'applicazione web la scrittura di codice che faciliti la fase di verifica. L'algoritmo proposto cerca infatti di fornire supporto per stabilire la strategia di selezione degli elementi, ma l'uso di uno strumento automatico può sfruttare ma non può sostituire il lavoro svolto a monte per scrivere codice di qualità. Questa affermazione d'altronde è valida nell'ambito dei test in ogni dominio: più il codice sotto esame è ben organizzato, più sarà facile verificarne il funzionamento dall'esterno.
+
+\section{Idee ed ipotesi di partenza}
+
+Il funzionamento dell'algoritmo fonda le sue basi su di un modello empirico e non su concetti dimostrabili a priori, poiché le differenti casistiche che si presentano esaminando applicazioni web reali sono in numero potenzialmente infinito. Pertanto i punti di partenza sono stati forniti dalla propria esperienza nella realizzazione di pagine e di applicazioni web utilizzando le tecnologie più recenti, e dall'osservazione diretta di casi significativi.
+
+Gli spunti raccolti hanno contribuito a definire una serie di criteri adattabili alle situazioni comuni, attraverso i quali l'algoritmo tenta di risolvere i problemi tipici presenti nel test di applicazioni web. L'obiettivo principale è riuscire a stabilire un selettore CSS che identifichi l'elemento corretto nonostante le possibili modifiche che interessino i suoi attributi, quelli dei nodi appartenenti alla sua linea gerarchica e il suo posizionamento nel DOM. A seguire viene presentato un elenco delle variazioni più comuni, per chiarificare i concetti esposti fino ad ora.
+
+\subsection {Schemi tipici di variazioni nel DOM}
+
+Nella figura ~\ref{fig:domMod} sono presentati i principali schemi individuati secondo i quali avvengono le variazioni nel DOM durante il processo incrementale di sviluppo dell'applicazione web. Nei diagrammi sono evidenziati in arancione i nodi di interesse ai fini del test. 
+
+Le modifiche rappresentate non pregiudicano in linea di massima il funzionamento della pagina in esame: si pensi ad esempio al caso comune in cui si aggiunga un tag div che funge da semplice contenitore, oppure all'aggiunta di una o più classi per ragioni stilistiche. E' quindi importante che il selettore tenga in considerazione queste potenziali variazioni in modo che l'elemento interessato sia reperibile anche seguito ad esse, pena il fallimento del test senza un effettivo difetto funzionale.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics{images/dom_mod.png}
+\caption{Principali schemi di modifica del DOM}
+\label{fig:domMod}
+\end{center}
+\end{figure}
+
+\subsection {L'importanza dell'attributo id}
+
+L'algoritmo proposto attribuisce una notevole importanza all'attributo id assegnabile ai tag HTML. Secondo la specifica W3C, l'attributo id deve essere utilizzato come identificatore univoco per un elemento della pagina. Di conseguenza, se in fase di scrittura dell'HTML si sceglie di assegnare questo attributo ad un tag, si può dedurre che esso agli occhi dello sviluppatore svolge un ruolo ben preciso ed ha pertanto la sua importanza nella pagina. Essendo univocamente identificato inoltre sarà sempre possibile accedere a tale elemento indipendentemente dal contesto in cui esso si trova. 
+
+Inoltre, questo identificativo rappresenta il modo più performante e sicuro per accedere all'elemento da codice Javascript, tramite il metodo \verb|document.getElementById|. Siccome spesso l'id viene assegnato proprio con questo scopo, è relativamente poco probabile che esso venga modificato o rimosso in un secondo momento rispetto ad altri attributi, poiché ciò comporterebbe anche la potenziale modifica degli script sviluppati per l'applicazione.
+
+Idealmente, se tutti gli elementi del DOM avessero un attributo id il problema che l'algoritmo tenta di risolvere sarebbe inesistente, poiché la selezione del nodo di interesse non dovrebbe tener conto della posizione nell'albero. Questa osservazione giustifica di fatto il peso che l'algoritmo gli assegna. 
+
+Più l'albero del DOM è complesso, più alta è la probabilità che si verifichi prima o poi una variazione che interessi indirettamente il percorso verso il nodo di interesse. L'algoritmo cerca pertanto di semplificare le condizioni di partenza lavorando su di un sottoalbero che contiene il nodo da selezionare. Come radice di questo sottoalbero viene scelto il primo nodo antenato che possiede un attributo id, incontrato visitando in maniera bottom-up la gerarchia del nodo da selezionare. 
+
+Nel caso banale in cui il nodo da selezionare possieda egli stesso un id, il sottoalbero coinciderà con esso. Negli altri casi invece si avrà come punto di partenza del selettore un nodo con attributo id, che quindi avrà le proprietà descritte poco prima, limitando quindi le potenziali combinazioni di variazioni relativamente alla struttura dell'intero documento. Per costruzione il selettore CSS risultante avrà in prima posizione un frammento di tipo id, che sarà anche l'unico presente, nel caso in cui nodo abbia almeno un elemento antenato con questo attributo impostato. 
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics{images/id_partition.png}
+\caption{Identificazione del sottoalbero a partire dall'ID}
+\label{fig:idPartition}
+\end{center}
+\end{figure}
+
+Il problema di selezionare in modo flessibile i vari componenti in fase di testing è una problematica che come si è detto interessa anche le applicazioni tradizionali con interfaccia grafica. In questo ambito una delle soluzioni spesso utilizzate comporta l'utilizzo di una o più classi ausiliarie che svolgono il ruolo di repository per i componenti. Tramite queste classi è possibile accedere in maniera opaca ai vari widget durante i test, poiché esse implementano al loro interno la logica per individuare il componente, mappandone la reale posizione ad un identificativo. Quando viene modificata la struttura dell'interfaccia, è quindi sufficiente modificare il codice in un solo punto, senza modificare l'implementazione dei test.
+
+Nel caso delle applicazioni web con interfaccia in HTML, l'attributo può svolgere concettualmente lo stesso ruolo dell'identificativo nel repository dei widget, con il vantaggio che questa possibilità è intrinseca alla tecnologia utilizzata.
+
+Durante lo sviluppo dell'interfaccia è buona norma quindi procedere con un occhio di riguardo per la successiva fase di acceptance testing e adoperare gli accorgimenti necessari per renderla più facile. Per quanto visto fino ad ora, può essere molto utile assegnare gli attributi id agli elementi più importanti della pagina, che permettono all'utente di attivare le funzionalità principali oppure che forniscono le informazioni di maggiore interesse, e tenere il più possibile costanti i valori di questi identificativi durante le successive modifiche, in modo da non influenzare i test definiti.
+
+\subsection {L'attributo role}
+
+Un altro importante attributo utilizzato dall'algoritmo è l'attributo \verb|role|. Se presente, esso serve ad indicare uno o più ruoli che l'elemento possiede nell'ambito della pagina. Un corretto uso semantico di questo attributo viene illustrato nella specifica del W3C [\url{http://www.w3.org/TR/xhtml-role/#s_role_module_attributes}]:
+
+\lstinputlisting[language=Html, caption={Esempio di uso semantico dell'attributo role}, label=code:roleAttr]{code/selector/w3c_role.html}
+
+Se chi ha scritto il codice HTML ha inserito questo attributo in un tag, con molta probabilità il suo valore può essere un buon candidato per selezionare l'elemento stesso in mancanza di un attributo id, oppure per costruire il percorso verso l'elemento da selezionare se l'attributo si trova su di un elemento antenato. 
+
+In quest'ultimo caso l'attributo può aiutare ad identificare il sottoalbero in cui si trova l'elemento di interesse, corrispondente ad un'area nella pagina web.
+
+\subsection {Selettori per elementi particolari}
+
+In base al tipo e valore semantico dell'elemento da selezionare, l'algoritmo adopera una strategia particolare per un sottoinsieme di elementi DOM che hanno attributi particolari:
+
+\begin{description}
+\item[Campi di input] Alcuni tipi di tag HTML sono definiti per permettere all'utente di inserire dei dati in ingresso, processabili poi lato server. La loro strategia di selezione è pertanto fondamentale in fase di testing. Per questi elementi di input, come caselle di testo, caselle di spunta, menù a tendina, è di particolare interesse l'attributo \verb|name|. 
+
+Il valore assegnato a tale attributo viene utilizzato nell'invio della richiesta HTTP successiva alla sottomissione del form come chiave che identifica il dato inserito dall'utente nel relativo campo. Lato server l'applicazione utilizza quindi il valore dell'attributo \verb|name| per accedere al dato inviato. Siccome esiste questa dipendenza all'interno dell'applicazione, è poco probabile che l'attributo name venga modificato in seguito a modifiche grafiche nel layout della pagina.Per questo motivo, è un ottimo candidato per identificare in maniera consistente e robusta il nodo del DOM in mancanza dell'attributo id.
+
+\item[Label] Il tag \verb|label| è stato definito appositamente per comunicare all'utente il tipo di dato a inserire in un campo di testo. L'algoritmo ne utilizza l'alttributo \verb|for|, che se presente specifica l'id del campo di input a cui si riferisce il testo dell'etichetta. Per gli stessi motivi indicati nel punto precedente è possibile sfruttare questa informazione aggiuntiva nel selettore generato.
+
+\item[Liste] Per definire liste ordinate di elementi in una pagina in maniera semantica si utilizza l'apposito tag \verb|ol|. Nel selettore CSS che individua un particolare elemento di questo tipo di liste l'algoritmo ne specifica sempre l'ordine, utilizzando lo pseudo selettore \verb|:eq(n)| messo a disposizione dalla libreria jQuery, che estende le capacità dei selettori CSS con alcuni pseudo-selettori aggiuntivi.
+
+\item[Collegamenti ipertestuali] Anche i collegamenti ipertestuali giocano un ruolo centrale durante la fase di testing. Nel caso in cui non siano definiti attributi di tipo id o class, l'algoritmo utilizza lo pseudo selettore \verb|:contains()| di jQuery, che seleziona un elemento in base al testo contenuto.
+
+Le alternative analizzate per questo particolare caso sono state la selezione in base alla posizione rispetto al nodo padre oppure in base all'url specificato nell'attributo \verb|href|. Entrambe queste alternative si sono però rivelate meno efficaci. La posizione è infatti una variabile poco significativa, che rende la selezione troppo fragile alle modifiche. Il valore dell'alttributo \verb|href| invece è stato scartato poiché l'url di un link è eccessivamente soggetto a modifiche interne all'applicazione, anche di piccola entità come l'aggiunta di un parametro alla querystring o casistiche simili.
+
+\end{description}
+
+\subsection {Descrizione dell'algoritmo}
+
+All'interno dell'applicazione sviluppata, si è implementato l'algoritmo proposto utilizzando il linguaggio Javascript e la libreria jQuery. Quest'ultima è stata impiegata in questo ambito per due motivi. In primo luogo, jQuery fornisce dei metodi di navigazione dell'albero DOM molto potenti e di comodo utilizzo, senza bisogno di dover ricorrere all'API di Javascript per reimplementare queste funzionalità. In secondo luogo, jQuery estende le capacità dei selettori CSS3 con nuovi pseudo-selettori, che in alcuni casi rappresentano una scorciatoia per selettori più complessi usati frequentemente, mentre in altri casi esprimono concetti non definibili tramite i selettori standard. In aggiunta, è possibile ampliare questo insieme di pseudo-selettori realizzandone di personalizzati se necessario.
+
+Il funzionamento dell'algoritmo per la generazione dei selettori CSS è diviso in due fasi distinte. 
+
+Nella prima fase si costruisce in maniera ricorsiva il selettore, partendo dal nodo di interesse e visitando l'albero in maniera bottom-up. Durante questo processo sono tenuti in considerazione i criteri esposti in precedenza per comporre le singole parti del selettore, basandosi sull'elemento corrente in ogni iterazione.
+
+Nella seconda fase il selettore così ottenuto viene ottimizzato dal punto di vista delle potenziali variazioni future subite dall'albero del DOM, in seguito a modifiche grafiche o di contenuto dell'applicazione sotto esame. Procedendo per tentativi l'algoritmo tenta di eliminare le componenti non indispensabili, per ottenere un selettore minimo.
+
+Queste due fasi vengono descritte nel dettaglio nei paragrafi seguenti.
+
+\subsubsection {Prima fase: percorso bottom-up}
+
+La prima fase viene realizzata attraverso la funzione \verb|_traverse|. Come parametro in ingresso l'algoritmo si aspetta un riferimento ad un oggetto Javascript che rappresenta il nodo del DOM da selezionare. I passaggi dell'algoritmo sono i seguenti:
+
+\begin{enumerate}
+\item Se l'elemento corrente è il tag \verb|body|, la ricorsione viene terminata e si restituisce il selettore generato fin'ora, poiché si è raggiunta la radice dell'albero.
+\item Viene prodotto il componente del selettore che specifica l'elemento corrente:
+	\begin{enumerate}
+		\item Se per l'elemento corrente è stato definito l'attributo id, questo viene aggiunto  in fronte al selettore costruito fino ad ora.
+		\item Se l'elemento è di tipo \verb|a|, viene preposto il frammento \verb|a:icontains(<contenuto del tag>)|, che seleziona il nodo che contiene il testo specificato nelle parentesi dello pseudo-selettore jQuery.
+		\item Se l'elemento possiede uno o più attributi \verb|role|, viene aggiunto un frammento del tipo \verb|<tipotag>[role=<role>]|.
+		\item Se l'elemento è un widget di input e possiede l'attributo \verb|name|, si aggiunge un frammento del tipo \verb|<tipotag>[name=<name>]|
+		\item Se l'elemento è una label è presente l'attributo \verb|for| e nella pagina esiste un nodo con attributo id uguale al valore dell'attributo for, si aggiunge un frammento del tipo \verb|<tipotag>[for=<for>]| 
+		\item Se l'elemento è una voce di un elenco numerato, viene specificato il numero ordinale che ne indica la posizione tra i figli del nodo \verb|ol| genitore, tramite lo pseudo-selettore \verb|:eq(<indice>)|
+		\item Se l'elemento possiede una o più classi, viene presa la prima in ordine di definizione e aggiunto in cima allo stack un componente al selettore del tipo \verb|.<classe>|
+		\item Infine, se nessuna delle condizioni precedenti è applicabile, si aggiunge al selettore il nome del tag corrente.
+	\end{enumerate}
+\item Si verifica se il selettore costruito fino a questo punto identifica uno ed un solo elemento tra tutti i figli del genitore del nodo corrente.
+	\begin{enumerate}
+		\item Se la verifica ha esito positivo, il selettore generato fino a questo punto è univoco. Si continua la ricorsione richiamando il metodo \verb|_traverse| passandogli come argomenti il padre dell'elemento attuale, che diventerà l'elemento corrente della prossima iterazione, e il vettore contenente le componenti del selettore generate.
+		\item In caso contrario, esistono almeno due nodi nella partizione dell'albero visitata che rispondono allo stesso selettore. Siccome questo sarà sempre vero anche per le iterazioni successive, è necessario rimediare al problema. Per far ciò, si ricava l'indice posizionale dell'elemento identificato dal selettore in cima allo stack dei frammenti, relativamente al nodo genitore. Si appende poi a tale frammento lo pseudo-selettore \verb|:eq(<indice>)|. Poiché questa operazione viene effettuata ad ogni iterazione dell'algoritmo, si ha la certezza che il selettore così ottenuto sia univoco per costruzione, poiché l'indice posizionale è l'elemento sicuramente discriminante in caso di ambiguità.
+	\end{enumerate}	
+	
+\end{enumerate}
+
+Al termine di questo procedimento si ottiene quindi un selettore univoco per l'elemento iniziale, composto da un frammento per ogni livello del DOM incontrato nella visita.
+
+\subsubsection {Seconda fase: ottimizzazione del selettore}
+
+Il selettore ottenuto tramite la fase precedente viene semplificato per ottenere un nuovo selettore che identifichi lo stesso elemento di partenza, ma che sia più resistente alle potenziali modifiche apportate alla struttura della pagina.
+
+La fase di ottimizzazione si basa sulla seguente ipotesi, ricavata in maniera empirica durante lo sviluppo delle interfacce di numerose applicazioni web, che si basa sull'osservazione del punto dell'albero DOM in cui avvengono le modifiche durante lo sviluppo dell'interfaccia nel lungo periodo. Considerando come punto di riferimento la posizione nel DOM del nodo selezionato per il test, è più probabile che le modifiche si verifichino nei livelli gerarchici più vicini al punto di riferimento, piuttosto che nei livelli più distanti. Si identifica quindi una certa località nella distribuzione delle modifiche rispetto al nodo di interesse.
+
+Questa ipotesi si fonda sul fatto che la struttura di una pagina web segue normalmente uno schema comune, nella quale gli elementi più in alto nel DOM sono utilizzati per definire la struttura di base del layout grafico, come l'intestazione della pagina, l'area dei contenuti principali, la barra di navigazione laterale, eccetera. E' ragionevole supporre che, una volta definite, queste macro aree rimarranno stabili e non subiranno modifiche continue durante lo sviluppo incrementale dell'interfaccia.
+
+Viceversa, saranno gli elementi più interni a subire il maggior numero di modifiche, con l'aggiunta di nuovo contenuto, nuove voci nei menù, e la riorganizzazione delle strutture interne.
+
+Sfruttando queste considerazioni, l'algoritmo prova a rimuovere progressivamente i frammenti del selettore, partendo dal frammento subito precedente a quello riferito al nodo di interesse, che rimane pertanto sempre presente. Se il selettore ottenuto continua ad identificare univocamente lo stesso elemento di partenza, il frammento corrente viene rimosso e si procede con quello che lo precede. Il procedimento viene interrotto quando si raggiunge il primo frammento di tipo id.
+
+Di seguito vengono esposti nel dettaglio i vari passaggi di questa fase:
+
+\begin{enumerate}
+\item Si marca il nodo di partenza aggiungendovi una classe speciale, per poter verificare successivamente se il selettore ottimizzato continua ad identificare effettivamente lo stesso elemento.
+\item Il vettore \verb|path| è popolato con i frammenti del selettore ottenuto dalla prima fase. In prima posizione è presente il frammento più generico, in ultima quello relativo al nodo di partenza.   
+\item Per ogni elemento del vettore \verb|path|, partendo dal penultimo e procedendo con indice decrescente:
+	\begin{enumerate}
+		\item Se il frammento corrente è di tipo id, si interrompe l'iterazione e si ritorna il selettore corrente
+		\item In caso contrario, si duplica il vettore, si rimuove dalla copia il frammento corrente e si compone il nuovo selettore unendo gli elementi del vettore di prova.
+		\item Si recupera l'insieme dei nodi del DOM che rispondono a tale selettore di prova e si verifica che esso sia composto da un unico elemento. Inoltre, questo elemento deve possedere la classe speciale usata come marcatore, per assicurarsi che il selettore identifichi esattamente il nodo di partenza.
+		\item Se queste condizioni sono verificate, il vettore di prova diventa il vettore del selettore corrente. L'algoritmo procede e l'analisi si sposta sul frammento precedente.
+	\end{enumerate}
+\end{enumerate}
 
 
 \end{document}
