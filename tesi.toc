@@ -1,0 +1,105 @@
+\select@language {italian}
+\select@language {italian}
+\contentsline {chapter}{\numberline {1}Titolo del primo capitolo}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Una panoramica sui livelli di testing}{1}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Introduzione}{1}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}Unit testing}{2}{subsection.1.1.2}
+\contentsline {subsection}{\numberline {1.1.3}Integration testing}{2}{subsection.1.1.3}
+\contentsline {subsection}{\numberline {1.1.4}Functional testing}{3}{subsection.1.1.4}
+\contentsline {subsection}{\numberline {1.1.5}Acceptance testing}{3}{subsection.1.1.5}
+\contentsline {section}{\numberline {1.2}Test Driven Development}{4}{section.1.2}
+\contentsline {section}{\numberline {1.3}Behavior Driven Development}{4}{section.1.3}
+\contentsline {section}{\numberline {1.4}Il testing delle interfacce grafiche}{4}{section.1.4}
+\contentsline {subsection}{\numberline {1.4.1}Introduzione}{4}{subsection.1.4.1}
+\contentsline {subsection}{\numberline {1.4.2}Problematiche}{5}{subsection.1.4.2}
+\contentsline {subsubsection}{Complessit\IeC {\`a} intrinseca del sistema}{7}{section*.2}
+\contentsline {subsubsection}{Registrazione e riproduzione dei dati in ingresso}{7}{section*.3}
+\contentsline {subsubsection}{Regression test}{8}{section*.4}
+\contentsline {subsubsection}{Definizione di metriche}{9}{section*.5}
+\contentsline {subsection}{\numberline {1.4.3}Il testing delle interfacce nelle applicazioni web}{9}{subsection.1.4.3}
+\contentsline {subsection}{\numberline {1.4.4}Differenze tecnologiche}{11}{subsection.1.4.4}
+\contentsline {subsection}{\numberline {1.4.5}Differenze ed analogie nell'interazione con l'utente}{13}{subsection.1.4.5}
+\contentsline {chapter}{\numberline {2}Una panoramica sugli strumenti esistenti}{17}{chapter.2}
+\contentsline {section}{\numberline {2.1}Selenium}{17}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Selenium IDE}{17}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Selenium WebDriver}{19}{subsection.2.1.2}
+\contentsline {section}{\numberline {2.2}Windmill}{20}{section.2.2}
+\contentsline {section}{\numberline {2.3}Watir}{21}{section.2.3}
+\contentsline {section}{\numberline {2.4}Sahi}{22}{section.2.4}
+\contentsline {chapter}{\numberline {3}Tool}{23}{chapter.3}
+\contentsline {section}{\numberline {3.1}Obiettivi}{23}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Facilit\IeC {\`a} di utilizzo}{25}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Robustezza dei test}{26}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Strumento integrato}{27}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}Compatibilit\IeC {\`a} con applicazioni esistenti}{28}{subsection.3.1.4}
+\contentsline {section}{\numberline {3.2}Tecnologie utilizzate}{28}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Sviluppo dell'interfaccia grafica}{29}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Qt framework}{30}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Python e PyQt}{30}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}Architettura del framework Qt}{31}{subsection.3.2.4}
+\contentsline {subsubsection}{Gestione degli eventi}{31}{section*.6}
+\contentsline {subsubsection}{Il paradigma MVC in PyQt}{33}{section*.7}
+\contentsline {section}{\numberline {3.3}Il componente QtWebKit}{36}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}WebKit rendering engine}{36}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Interazione tra QtWebKit ed il DOM}{37}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}QtWebKit Bridge}{37}{subsection.3.3.3}
+\contentsline {section}{\numberline {3.4}jQuery}{39}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Un confronto tra i selettori CSS ed XPath}{40}{subsection.3.4.1}
+\contentsline {subsubsection}{Leggibilit\IeC {\`a}}{43}{section*.8}
+\contentsline {subsubsection}{Prestazioni}{43}{section*.9}
+\contentsline {subsubsection}{Utilizzo con jQuery}{43}{section*.10}
+\contentsline {chapter}{\numberline {4}Architettura dello strumento di testing}{44}{chapter.4}
+\contentsline {section}{\numberline {4.1}Modulo main.pyw}{44}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Costruzione dell'interfaccia grafica}{46}{subsection.4.1.1}
+\contentsline {subsubsection}{La barra degli indirizzi}{47}{section*.11}
+\contentsline {subsubsection}{Il browser}{47}{section*.12}
+\contentsline {subsubsection}{La lista delle azioni}{48}{section*.13}
+\contentsline {subsubsection}{La barra degli strumenti}{50}{section*.14}
+\contentsline {section}{\numberline {4.2}Modulo simulator}{51}{section.4.2}
+\contentsline {subsubsection}{Iniezione di codice Javascript nelle pagine web}{51}{section*.15}
+\contentsline {subsubsection}{Comunicazione tra Python e Javascript}{53}{section*.16}
+\contentsline {subsection}{\numberline {4.2.1}Sincronizzazione tra richieste HTTP e flusso di simulazione}{53}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Simulazione e richieste AJAX}{55}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Riproduzione delle azioni}{59}{subsection.4.2.3}
+\contentsline {section}{\numberline {4.3}Modulo actions}{59}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Implementazione del Model nel paradigma MVD}{59}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Salvataggio dei test in formato XML}{62}{subsection.4.3.2}
+\contentsline {subsubsection}{Azioni ed asserzioni}{63}{section*.17}
+\contentsline {subsection}{\numberline {4.3.3}La registrazione delle azioni utente}{66}{subsection.4.3.3}
+\contentsline {subsection}{\numberline {4.3.4}DOM event model}{66}{subsection.4.3.4}
+\contentsline {subsection}{\numberline {4.3.5}Registrazione degli eventi}{67}{subsection.4.3.5}
+\contentsline {subsection}{\numberline {4.3.6}Riproduzione degli eventi}{69}{subsection.4.3.6}
+\contentsline {subsubsection}{Eventi Javascript}{70}{section*.18}
+\contentsline {subsubsection}{Eventi nativi}{71}{section*.19}
+\contentsline {chapter}{\numberline {5}Algoritmi di selezione degli elementi}{75}{chapter.5}
+\contentsline {section}{\numberline {5.1}Considerazioni iniziali e prerequisiti}{75}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Validazione della sintassi HTML}{75}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Utilizzo dei tag HTML in maniera semantica}{76}{subsection.5.1.2}
+\contentsline {section}{\numberline {5.2}Idee ed ipotesi di partenza}{77}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Schemi tipici di variazioni nel DOM}{77}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}L'importanza dell'attributo id}{77}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}L'attributo role}{81}{subsection.5.2.3}
+\contentsline {subsection}{\numberline {5.2.4}Selettori per elementi particolari}{81}{subsection.5.2.4}
+\contentsline {subsection}{\numberline {5.2.5}Descrizione dell'algoritmo}{82}{subsection.5.2.5}
+\contentsline {subsubsection}{Prima fase: percorso bottom-up}{83}{section*.20}
+\contentsline {subsubsection}{Seconda fase: ottimizzazione del selettore}{84}{section*.21}
+\contentsline {subsection}{\numberline {5.2.6}Esempi pratici}{86}{subsection.5.2.6}
+\contentsline {subsubsection}{Aggiunta di elementi contenitori multipli}{86}{section*.22}
+\contentsline {subsubsection}{Aggiunta di una nuova voce in un men\IeC {\`u} a pi\IeC {\`u} livelli}{86}{section*.23}
+\contentsline {subsubsection}{Utilizzo semantico di una lista ordinata}{88}{section*.24}
+\contentsline {subsubsection}{Campi di input}{89}{section*.25}
+\contentsline {subsection}{\numberline {5.2.7}Unit test dell'algoritmo}{89}{subsection.5.2.7}
+\contentsline {chapter}{\numberline {6}Algoritmo di }{90}{chapter.6}
+\contentsline {section}{\numberline {6.1}Principi di base e funzionamento}{91}{section.6.1}
+\contentsline {section}{\numberline {6.2}Esempi di funzionamento}{92}{section.6.2}
+\contentsline {chapter}{\numberline {7}Prova dello strumento}{93}{chapter.7}
+\contentsline {section}{\numberline {7.1}Descrizione del primo esperimento}{94}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Preparazione dello strumento e definizione del punto di partenza per il test}{94}{subsection.7.1.1}
+\contentsline {subsection}{\numberline {7.1.2}Pagina di login}{94}{subsection.7.1.2}
+\contentsline {subsection}{\numberline {7.1.3}Dashboard}{97}{subsection.7.1.3}
+\contentsline {subsection}{\numberline {7.1.4}Pagina per la pubblicazione di un nuovo articolo}{98}{subsection.7.1.4}
+\contentsline {subsubsection}{Click nel men\IeC {\`u} principale}{98}{section*.26}
+\contentsline {subsubsection}{Creazione ed assegnamento di una nuova categoria via Ajax}{99}{section*.27}
+\contentsline {subsubsection}{Verifica dell'inserimento e del filtro di ricerca}{101}{section*.28}
+\contentsline {section}{\numberline {7.2}Descrizione del primo esperimento}{101}{section.7.2}
+\contentsline {chapter}{Bibliografia}{105}{chapter*.29}

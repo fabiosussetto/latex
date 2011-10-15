@@ -1,0 +1,42 @@
+\begin{thebibliography}{7}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Atif M.~Memon()]{guiTestGeneration}
+Mary Lou~Soffa Atif M.~Memon, Martha E.~Pollack.
+\newblock Plan generation for gui testing.
+
+\bibitem[Dean~Leffingwell(2010)]{agileRequirements}
+Don~Widrig Dean~Leffingwell.
+\newblock \emph{Agile Software Requirements: Lean Requirements Practices for
+  Teams, Programs, and the Enterprise}.
+\newblock Addison Wesley, 2010.
+
+\bibitem[Garrett()]{ajaxGarrett}
+Jesse~James Garrett.
+\newblock Ajax: A new approach to web applications.
+
+\bibitem[Gerrard(1997)]{gerrardGUI}
+Paul Gerrard.
+\newblock Testing gui applications.
+\newblock 1997.
+
+\bibitem[Grigori~Melnik(2009)]{microsoft}
+Jon~Bach Grigori~Melnik, Gerard~Meszaros.
+\newblock \emph{Acceptance Test Engineering Guide}.
+\newblock Microsoft, 2009.
+
+\bibitem[Kaner(1999)]{KanerFalk}
+Nguyen Kaner, Falk.
+\newblock \emph{Testing computer software}.
+\newblock Wiley, 1999.
+
+\bibitem[Memon(2002)]{memonGuiTesting}
+Atif~M. Memon.
+\newblock Gui testing: Pitfalls and process.
+\newblock \emph{University of Maryland}, 2002.
+
+\end{thebibliography}
