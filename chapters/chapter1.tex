@@ -1,13 +1,13 @@
-\chapter{Titolo del primo capitolo}
+\chapter{Concetti introduttivi}
 
-\section{Una panoramica sui livelli di testing}
+\section{L'attività di testing}
 
 \subsection{Introduzione}
 
 Poiché l'argomento principale di questa trattazione consiste nell'analisi di alcune strategie di test applicate al caso particolare delle applicazioni web, è opportuno introdurre l'argomento descrivendo alcuni concetti teorici basilari, che permettono di comprendere meglio il contesto in cui andranno ad operare gli strumenti analizzati.
 
 Le tipologie di testing tradizionalmente individuate nell'ingegneria del software si suddividono in base al livello architetturale interessato dalle verifiche.
-Il software infatti può essere modellizzato attraverso una serie di moduli che interagiscono tra di loro. A seconda del caso, ci si può concentrare sul funzionamento dei vari moduli in isolamento, oppure sul comportamento globale del sistema, una volta che i moduli vengono integrati e interagiscono tra loro, oppure ancora sull'integrazione del software con altri componenti esterni, generalmente non controllabili direttamente dal sistema sviluppato.
+Il software infatti può essere modellizzato attraverso una serie di componenti che interagiscono tra di loro. A seconda del caso, ci si può concentrare sul funzionamento dei vari moduli in isolamento, oppure sul comportamento globale del sistema, una volta che i moduli vengono integrati e interagiscono tra loro, oppure ancora sull'integrazione del software con altri componenti esterni, generalmente non controllabili direttamente dal sistema sviluppato.
 
 Un altro dei principali criterio di classificazione si basa sul ruolo svolto dalle figure che definiscono ed eseguono le verifiche. Nei casi più comuni, esse vengono definite da uno o più gruppi di programmatori interni all'organizzazione che realizza il software e il loro utilizzo rimane pertanto confinato in questo ambito.
 
@@ -18,7 +18,7 @@ Nello unit testing il comportamento dei vari moduli che compongono il software v
 
 Inoltre i difetti possono essere rivelati e corretti in maniera più rapida, poiché si riduce la complessità del problema attraverso il classico paradigma \emph{divide et impera} e di conseguenza l'area in cui individuare la causa del problema sarà maggiormente circoscritta.
 
-Affinchè questa tecnica sia applicabile, è fondamentale progettare il software in maniera modulare, adottando le regole tipiche della programmazione ad oggetti. In aggiunta, è necessario ridurre al minimo i vincoli di dipendenza tra i componenti, in modo che ognuno possa essere trattato come una entità logica a sé stante, con responsabilità ben delineate e con un funzionamento verificabile quindi in maniera indipendente.
+Affinché questa tecnica sia applicabile, è fondamentale progettare il software in maniera modulare, adottando le regole tipiche della programmazione ad oggetti. In aggiunta, è necessario ridurre al minimo i vincoli di dipendenza tra i componenti, in modo che ognuno possa essere trattato come una entità logica a sé stante, con responsabilità ben delineate e con un funzionamento verificabile quindi in maniera indipendente.
 
 Solitamente, all'interno del paradigma della programmazione ad oggetti l'unità elementare interessata dallo unit testing è la classe. Si ricercano potenziali problemi nel funzionamento atteso fornendo in ingresso ai metodi pubblici
 svariati insiemi di dati, che si ritiene possano provocare comportamenti critici del codice. 
@@ -46,7 +46,7 @@ Il livello di astrazione a cui questo tipo di test opera è il più elevato risp
 
 \subsection{Acceptance testing}
 
-Secondo \cite{KanerFalk}, con il termine "acceptance testing" si indicano generalmente le verifiche che il cliente finale (o chi ha commissionato il software) esegue per assicurarsi che il prodotto si comporti secondo le proprie esigenze, e che quindi il suo utilizzo produca un certo tipo di valore aggiunto.
+Secondo \cite{KanerFalk}, con il termine \emph{acceptance testing} si indicano generalmente le verifiche che il cliente finale (o chi ha commissionato il software) esegue per assicurarsi che il prodotto si comporti secondo le proprie esigenze, e che quindi il suo utilizzo produca un certo tipo di valore aggiunto.
 
 Normalmente questo tipo di validazione viene quindi svolto da persone esterne all'organizzazione che sta sviluppando il progetto, o comunque in stretta collaborazione tra il committente e gli sviluppatori. 
 
@@ -56,9 +56,9 @@ Poiché i test di accettazione devono essere eseguiti in corrispondenza di ogni 
 
 Se usati in maniera corretta, I test di accettazione svolti dal committente possono anche rappresentare un utile mezzo di comunicazione con il team di sviluppo. Attraverso questi test infatti il committente può identificare in maniera precisa e riproducibile i difetti riscontrati e comunicarli agli sviluppatori in modo che possano essere corretti il prima possibile. Inoltre, il committente può stabilire attraverso i test quali siano le funzionalità principali da implementare in maniera prioritaria, permettendo al team di programmatori di concentrarsi su di esse.
 
-\section{Test Driven Development}
+%\section{Test Driven Development}
 
-\section{Behavior Driven Development}
+%\section{Behavior Driven Development}
 
 \section{Il testing delle interfacce grafiche}
 
@@ -68,7 +68,7 @@ L'attività che riguarda la verifica e la validazione di interfacce grafiche ric
 
 Gli aspetti peculiari di tale attività hanno richiesto lo sviluppo di strumenti e di framework pensati apposta per questo compito. Al giorno d'oggi la stragrande maggioranza delle applicazioni utilizza un'interfaccia grafica per comunicare con l'utente, pertanto da diversi decenni il testing delle interfacce è divenuto una pratica consolidata nell'ingegneria del software.
 
-In riferimento alla panoramica descritta nel capitolo precedente, questa attività interessa praticamente tutti i livelli descritti: nello sviluppare un framework per la creazione e la gestione di interfacce grafiche sono effettuati test ad ognuno dei livelli indicati fin'ora.
+In riferimento alla panoramica descritta nel capitolo precedente, questa attività interessa praticamente tutti i livelli descritti: nello sviluppare un framework per la creazione e la gestione di interfacce grafiche sono effettuati test ad ognuno dei livelli indicati finora.
 
 Tuttavia, se come accade poi nella pratica viene utilizzato un sistema di librerie già precostruito per implementare l'interfaccia grafica dell'applicazione, allora diventa poco sensato effettuare una serie di test per ogni livello, in quanto ci si fida della qualità del codice utilizzato e creato apposta per lo scopo.
 
@@ -76,7 +76,7 @@ Sotto questa ipotesi, il testing di interfacce grafiche si colloca ad un livello
 
 Inoltre, le sequenze di operazioni che si vanno a riprodurre durante i controlli tendono ad avvicinarsi a quelle che potrebbe eseguire direttamente l'utente finale, durante il normale utilizzo del software in questione. Ecco quindi che, sotto un certo punto di vista, questa verifica si può considerare simile ad un test di accettazione, siccome i requisiti sotto esame saranno verosimilmente simili a quelli stabiliti dalle parti che hanno commissionato la realizzazione, visto l'elevato livello di astrazione a cui si opera.
 
-Si può inoltre osservare che le verifiche eseguite durante questa tipologia di test sollecitano indirettamente anche livelli architetturalmente meno astratti rispetto a quelli indicati fino ad adesso. 
+Si può inoltre osservare che le verifiche eseguite durante questa tipologia di test sollecitano indirettamente anche livelli architetturali meno astratti rispetto a quelli indicati fino ad adesso. 
 
 Infatti, affinché i test risultino efficaci, è necessaria la partecipazione di tutti gli strati logici che compongono l'applicazione, poiché inevitabilmente l'interfaccia è collocata al di sopra di essi e con essi interagisce pesantemente. In particolare, saranno verificate indirettamente alcune delle cosiddette \emph{business rule}, ossia quella parte di logica nel software che implementa le operazioni da effettuare sui dati ed i vincoli su di esse nel rispetto dei requisiti dettati dal committente \cite{agileRequirements}.
 
@@ -141,28 +141,35 @@ Rispetto al caso delle applicazioni desktop, il testing delle interfacce utilizz
 
 Inoltre, le due tipologie di applicazioni vengono eseguite in ambienti completamente differenti (il sistema operativo ed il browser), e si trovano quindi a dover sottostare a vincoli di realizzazione molto differenti tra loro.
 
-Se le applicazioni desktop sono orami una realtà consolidata da parecchi decenni, le applicazioni web hanno iniziato a dimostrarsi realmente come potenziali rivali solo negli ultimi anni. A titolo di campione, si prenda in esame la seguente tabella, che indica l'anno in cui i maggiori competitor hanno reso disponibili pubblicamente le applicazioni web più utilizzate ad oggi (dati presi da http://www.crunchbase.com/) %TODO: formattare url e citazione
+Se le applicazioni desktop sono orami una realtà consolidata da parecchi decenni, le applicazioni web hanno iniziato a dimostrarsi realmente come potenziali rivali solo negli ultimi anni. A titolo di campione, si prenda in esame la seguente tabella \footnote{\url{http://www.crunchbase.com}}, che indica l'anno in cui i maggiori competitor hanno reso disponibili pubblicamente le applicazioni web più utilizzate ad oggi.
 
 \begin{table}[htdp]
 \caption{Anno di lancio delle maggiori applicazioni web}
 \begin{center}
-\begin{tabular}{|c|c|c|}
-\hline
-Basecamp & 37signals & febbraio 2004\\\hline
-Flickr & & febbraio 2004\\\hline
-Twitter & & luglio 2006\\\hline
-GMail & Google & febbraio 2007\\\hline
-Reader & Google & settembre 2007\\\hline
-Wave & Google & maggio 2009\\\hline
-GooleMaps & Google & maggio 2008\\\hline
-Facebook & & febbraio 2004\\\hline
+\begin{tabular}{l l l}
+	\hline
+	\textbf{Nome applicazione} & \textbf{Organizzazione} & \textbf{Mese e anno di lancio} \\
+	\hline
+	Basecamp & 37signals & febbraio 2004\\ 
+	\hline
+	Flickr & Yahoo! & febbraio 2004\\ 
+	\hline
+	Twitter & Obvious Corp & luglio 2006\\
+	\hline
+	GMail & Google & febbraio 2007\\
+	\hline
+	GoogleReader & Google & settembre 2007\\
+	\hline
+	GoogleWave & Google & maggio 2009\\
+	\hline
+	GooleMaps & Google & maggio 2008\\
+	\hline
+	Facebook & Facebook, Inc. & febbraio 2004\\
+	\hline
 \end{tabular}
 \end{center}
 \label{default}
-\end{table}%
-
-%TODO: completare tabella?
-%TODO: aggiungere pregi/difetti app web?	
+\end{table}
 
 Viene proposta di seguito una breve analisi delle peculiarità riscontrabili nelle applicazioni web rispetto a quelle desktop, in modo da rendere più chiare alcune scelte prese nel proseguo della trattazione.
 
@@ -177,8 +184,6 @@ Ad oggi, le tecnologie maggiormente diffuse sono le seguenti:
 \item[Javascript:]  un linguaggio di scripting nato per essere interpretato dal browser, che mette a disposizione un'interfaccia per accedere al modello gerarchico della pagina (DOM) e ad alcune funzionalità del browser
 \item[Flash:] una piattaforma multimediale proprietaria per aggiungere animazioni, video, e nuove possibilità di interazione alle pagine web. I file flash, scritti tramite il linguaggio ActionScript, vengono inclusi nella pagina come risorse esterne. Attualmente, l'uso di questa tecnologia è in declino,  soprattutto ora che i maggiori browser iniziano ad implementare le specifiche HTML5.
 \end{description}
-
-%TODO allungare descrizione, includere flash?
 
 Queste tecnologie hanno scopi distinti, e costituiscono le componenti fondamentali per realizzare l'interfaccia grafica di un'applicazione web. Per implementare quest'ultima è quindi necessario utilizzare contemporaneamente tecnologie molto eterogenee tra di loro: ciò rende più difficoltosa la fase di testing poiché i metodi da utilizzare devono tener conto dell'azione di molteplici fattori. 
 
@@ -196,11 +201,11 @@ In primo luogo alla scarsa omogeneità tra le tecnologie utilizzate, che poco si
 In secondo luogo, solo negli ultimi si è iniziato a diffondere interesse nella ricerca di nuovi strumenti per colmare le distanze tra le metodologie di sviluppo delle cosiddette \emph{rich web application} rispetto alle classiche applicazioni desktop. Sono nati così negli ultimi anni diversi progetti che tentando di trasferire al web l'esperienza accumulata nello sviluppo di interfacce grafiche tradizionali. A titolo di esempio si possono citare i seguenti progetti open-source:
 
 \begin{description}
-\item[Cappuccino],  \footnote{\url{http://cappuccino.org}} un framework open source per facilitare lo sviluppo di applicazioni web simili ai software desktop, astraendo la complessità di utilizzare HTML e CSS per il layout grafico. Il framework utilizza un linguaggio chiamato Objective-J (compilato poi in javascript), che si ispira fortemente all'Objective-C utilizzato nel framework Cocoa per lo sviluppo di applicazioni su sistema operativo Apple OSX [http://developer.apple.com/technologies/mac/cocoa.html]. Nel progetto è anche incluso un framework di testing con il nome di OjTest e sono presenti alcuni strumenti sperimentali per automatizzare il testing dell'interfaccia, come il progetto cucapp [https://github.com/hammerdr/cucapp]. Cappuccino è stato rilasciato sotto licenza LGPL nel settembre 2008 [fonte: http://www.crunchbase.com/company/280-north] e al momento in cui si scrive è alla versione 0.9beta.
+\item[Cappuccino]  \footnote{\url{http://cappuccino.org}}, un framework open source per facilitare lo sviluppo di applicazioni web simili ai software desktop, astraendo la complessità di utilizzare HTML e CSS per il layout grafico. Il framework utilizza un linguaggio chiamato Objective-J (compilato poi in javascript), che si ispira fortemente all'Objective-C utilizzato nel framework Cocoa per lo sviluppo di applicazioni su sistema operativo Apple OSX. Nel progetto è anche incluso un framework di testing con il nome di OjTest e sono presenti alcuni strumenti sperimentali per automatizzare il testing dell'interfaccia, come il progetto cucapp \footnote{\url{https://github.com/hammerdr/cucapp}}. Cappuccino è stato rilasciato sotto licenza LGPL nel settembre 2008 \footnote{\url{http://www.crunchbase.com/company/280-north}} e al momento in cui si scrive è alla versione 0.9beta.
 
-\item[Sproutcore] (http://www.sproutcore.com/) un progetto open source che promette di rendere più efficiente lo sviluppo di rich web application attraverso un sistema di notifiche ed eventi che permette di sincronizzare in maniera automatica il livello di logica, realizzato in javascript, con il livello di presentazione dei dati, realizzato tramite un sistema di template in HTML e CSS. Come nel caso di Cappuccino, sono presenti alcune classi che rappresentano i controlli più utilizzati nelle interfacce tradizionali, come menù di navigazione, pannelli a tab, viste tabellari e ad alberi, ed un sistema di layout per la gestione facilitata del posizionamento e ridimensionamento dei componenti sullo schermo.
+\item[Sproutcore] \footnote{\url{http://www.sproutcore.com}}, un progetto open source che promette di rendere più efficiente lo sviluppo di rich web application attraverso un sistema di notifiche ed eventi che permette di sincronizzare in maniera automatica il livello di logica, realizzato in javascript, con il livello di presentazione dei dati, realizzato tramite un sistema di template in HTML e CSS. Come nel caso di Cappuccino, sono presenti alcune classi che rappresentano i controlli più utilizzati nelle interfacce tradizionali, come menù di navigazione, pannelli a tab, viste tabellari e ad alberi, ed un sistema di layout per la gestione facilitata del posizionamento e ridimensionamento dei componenti sullo schermo.
 
-\item[Backbone.js] (http://documentcloud.github.com/backbone/) supporta lo sviluppo di applicazioni web fortemente basate su javascript fornendo un'architettura Model-View-Controller. Questo framework rispetto ai precedenti è più snello e lascia una maggiore libertà organizzativa, poiché si adatta anche all'utilizzo per applicazioni non troppo complesse, meno simili a quelle desktop. Fornisce un sistema per utilizzare javascript secondo il modello di classi con ereditarietà e gestisce la presentazione dei dati tramite eventi collegabili ad un sistema di micro-template, per facilitare la gestione e il riutilizzo di frammenti di HTML e CSS. La prima versione è stata rilasciata da DocumentCloud nell'ottobre 2010 e attualmente l'ultima versione disponibile è la 0.5.3.
+\item[Backbone.js] \footnote{\url{http://documentcloud.github.com/backbone}} supporta lo sviluppo di applicazioni web fortemente basate su javascript fornendo un'architettura Model-View-Controller. Questo framework rispetto ai precedenti è più snello e lascia una maggiore libertà organizzativa, poiché si adatta anche all'utilizzo per applicazioni non troppo complesse, meno simili a quelle desktop. Fornisce un sistema per utilizzare javascript secondo il modello di classi con ereditarietà e gestisce la presentazione dei dati tramite eventi collegabili ad un sistema di micro-template, per facilitare la gestione e il riutilizzo di frammenti di HTML e CSS. La prima versione è stata rilasciata da DocumentCloud nell'ottobre 2010 e attualmente l'ultima versione disponibile è la 0.5.3.
 
 \end{description} 
 
@@ -220,7 +225,7 @@ Fino a pochi anni fa, l'interfaccia di un'applicazione web poteva essere conside
 
 Per iniziare, il modello di interazione con l'utente si rivelava completamente diverso. Un'applicazione web doveva sottostare ad una serie di sincronizzazioni temporali inevitabili, dovute al funzionamento del protocollo HTTP. Il modello base di interazione era la singola pagina, e ad ogni azione significativa dell'utente corrispondeva un tempo di attesa, poiché tramite una richiesta HTTP veniva richiesta al server una nuova pagina, che doveva essere trasmessa attraverso la rete e visualizzata nuovamente nel browser. Tipicamente l'utente si trovava a compilare un modulo, a premere sul pulsante di invio e ad attendere il caricamento della pagina successiva. Era presente quindi una certa sincronia e sequenzialità nelle possibili operazioni effettuate dall'utente. 
 
-In questo aspetto risiedeva una forte differenza con le applicazioni tradizionali, che prevedono la possiblità di agire in contemporanea su diverse finestre e nelle quali l'aggiornamento dei dati visibili in seguito a determinate operazioni è pressoché immediato nella maggior parte delle situazioni.
+In questo aspetto risiedeva una forte differenza con le applicazioni tradizionali, che prevedono la possibilità di agire in contemporanea su diverse finestre e nelle quali l'aggiornamento dei dati visibili in seguito a determinate operazioni è pressoché immediato nella maggior parte delle situazioni.
 
 Con la diffusione sempre più crescente della tecnologia Ajax però alcune delle differenze esistenti sono state parzialmente appianate. La possibilità di effettuare richieste HTTP asincrone attraverso l'oggetto XMLHttpRequest, supportato oggi in tutti i maggiori browser ha segnato un punto di rottura nello schema tipico di interazione tra la pagina web e il server, e di conseguenza tra l'utente e l'applicazione. Effettuando una richiesta Ajax, l'applicazione può infatti salvare il proprio stato in maniera permanente tramite uno script eseguito sul server senza che sia necessario un aggiornamento dell'intera pagina, in un processo totalmente trasparente per l'utente. Allo stesso modo, tramite Javascript è possibile aggiornare alcune aree della pagina con i dati ricevuti dal server, senza effettuare una nuova richiesta HTTP sincrona.
 

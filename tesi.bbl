@@ -1,42 +1,99 @@
-\begin{thebibliography}{7}
+\begin{thebibliography}{17}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Atif M.~Memon()]{guiTestGeneration}
-Mary Lou~Soffa Atif M.~Memon, Martha E.~Pollack.
-\newblock Plan generation for gui testing.
+\bibitem[bui()]{builtwith}
+jquery usage trends.
+\newblock URL \url{http://trends.builtwith.com/javascript/JQuery}.
 
-\bibitem[Dean~Leffingwell(2010)]{agileRequirements}
-Don~Widrig Dean~Leffingwell.
+\bibitem[Brown and Wilson(2011)]{architectureOfOpenSource}
+A.~Brown and G.~Wilson.
+\newblock \emph{The Architecture of Open Source Applications}.
+\newblock 2011.
+
+\bibitem[Costanza(2004)]{dynamicStaticPattern}
+Pascal Costanza.
+\newblock Dynamic vs. static typing --- a pattern-based analysis.
+\newblock 2004.
+
+\bibitem[DuVander(2011)]{byeXml}
+Adam DuVander.
+\newblock 1 in 5 apis say ``bye xml'', 2011.
+\newblock URL
+  \url{http://blog.programmableweb.com/2011/05/25/1-in-5-apis-say-bye-xml/}.
+
+\bibitem[Garrett(2005)]{ajaxGarrett}
+Jesse~James Garrett.
+\newblock Ajax: A new approach to web applications, 2005.
+\newblock URL
+  \url{http://adaptivepath.com/ideas/ajax-new-approach-web-applications}.
+
+\bibitem[Gerrard(1997)]{gerrardGUI}
+P.~Gerrard.
+\newblock Testing gui applications.
+\newblock 1997.
+
+\bibitem[Kaner et~al.(1999)Kaner, J.Falk, and Nguyen]{KanerFalk}
+C.~Kaner, J.Falk, and H.Q. Nguyen.
+\newblock \emph{Testing computer software}.
+\newblock Wiley, 1999.
+
+\bibitem[Leffingwell and Widrig(2010)]{agileRequirements}
+Dean Leffingwell and Don Widrig.
 \newblock \emph{Agile Software Requirements: Lean Requirements Practices for
   Teams, Programs, and the Enterprise}.
 \newblock Addison Wesley, 2010.
 
-\bibitem[Garrett()]{ajaxGarrett}
-Jesse~James Garrett.
-\newblock Ajax: A new approach to web applications.
+\bibitem[Martin(2003)]{martinDynamic}
+Robert~C. Martin.
+\newblock Are dynamic languages going to replace static languages?, 2003.
+\newblock URL \url{http://www.artima.com/weblogs/viewpost.jsp?thread=4639}.
 
-\bibitem[Gerrard(1997)]{gerrardGUI}
-Paul Gerrard.
-\newblock Testing gui applications.
-\newblock 1997.
-
-\bibitem[Grigori~Melnik(2009)]{microsoft}
-Jon~Bach Grigori~Melnik, Gerard~Meszaros.
+\bibitem[Melnik et~al.(2009)Melnik, Meszaros, and Bach]{microsoft}
+Grigori Melnik, Gerard Meszaros, and Jon Bach.
 \newblock \emph{Acceptance Test Engineering Guide}.
 \newblock Microsoft, 2009.
-
-\bibitem[Kaner(1999)]{KanerFalk}
-Nguyen Kaner, Falk.
-\newblock \emph{Testing computer software}.
-\newblock Wiley, 1999.
 
 \bibitem[Memon(2002)]{memonGuiTesting}
 Atif~M. Memon.
 \newblock Gui testing: Pitfalls and process.
 \newblock \emph{University of Maryland}, 2002.
+
+\bibitem[Memon et~al.(2000)Memon, Pollack, and Soffa]{guiTestGeneration}
+Atif~M. Memon, Martha~E. Pollack, and Mary~Lou Soffa.
+\newblock Plan generation for gui testing.
+\newblock 2000.
+
+\bibitem[Ordo{\~n}ez(2011)]{suarezCss}
+Santiago~Suarez Ordo{\~n}ez.
+\newblock Css vs xpath locators: An in-depth comparison \& why the former is the
+  way to go, 2011.
+\newblock URL
+  \url{http://saucelabs.com/blog/index.php/2011/05/why-css-locators-are-the-way-to-go-vs-xpath/}.
+
+\bibitem[Ousterhout(1998)]{Ousterhout}
+John~K. Ousterhout.
+\newblock Scripting: Higher level programming for the 21st century for the 21st
+  century.
+\newblock \emph{IEEE Computer magazine}, 1998.
+
+\bibitem[Resig(2005)]{resigXpathCss}
+John Resig.
+\newblock Xpath and css selectors, 2005.
+\newblock URL \url{http://ejohn.org/blog/xpath-css-selectors/}.
+
+\bibitem[Summerfield(2007)]{summerfield}
+Mark Summerfield.
+\newblock \emph{Rapid GUI Programming with Python and Qt}.
+\newblock Prentice Hall, 2007.
+
+\bibitem[Zalewski(2008)]{sameOrigin}
+Michal Zalewski.
+\newblock Browser security handbook, part 2, 2008.
+\newblock URL
+  \url{http://code.google.com/p/browsersec/wiki/Part2#Same-origin_policy}.
 
 \end{thebibliography}
