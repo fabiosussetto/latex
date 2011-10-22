@@ -97,4 +97,5 @@
 \contentsline {subsubsection}{Creazione ed assegnamento di una nuova categoria via Ajax}{107}{section*.26}
 \contentsline {subsubsection}{Verifica dell'inserimento e del filtro di ricerca}{108}{section*.27}
 \contentsline {section}{\numberline {6.2}Descrizione del primo esperimento}{109}{section.6.2}
-\contentsline {chapter}{Bibliografia}{112}{chapter*.28}
+\contentsline {chapter}{\numberline {7}Considerazioni finali}{112}{chapter.7}
+\contentsline {chapter}{Bibliografia}{115}{chapter*.28}
