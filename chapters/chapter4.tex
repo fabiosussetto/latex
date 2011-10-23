@@ -1,7 +1,5 @@
 \chapter{Architettura dello strumento di testing}
 
-In questo capitolo viene descritta l'architettura ...
-
 \section{Modulo principale}
 
 Il modulo \verb|main.pyw| costituisce il punto di ingresso dell'applicazione. La classe \verb|MainWindow| rappresenta la finestra principale, ed eredita le caratteristiche della classe \verb|QMainWindow|, definita nel framework PyQt. A differenza delle normali finestre di dialogo, la finestra principale deve essere unica all'interno dell'applicazione e prevede l'eventuale spazio per un barra dei menù, una barra di stato, un'area centrale in cui verranno posizionati i widget dell'interfaccia ed infine una serie di dock window, ossia finestre posizionabili e ridimensionabili dall'utente contenute nella finestra principale.

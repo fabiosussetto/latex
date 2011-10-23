@@ -1,0 +1,77 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+
+\usepackage{color}
+
+\usepackage{color}
+\usepackage{textcomp}
+
+\usepackage{fullpage}
+
+\title{Test di accettazione per applicazioni web: \newline tecniche e strumenti}
+\author{Fabio Sussetto}
+\date{}
+
+\usepackage{titling}
+\setlength{\droptitle}{-1in}
+
+\begin{document}
+
+\maketitle
+
+\subsubsection*{Introduzione}
+
+Le caratteristiche particolari tipiche di un'applicazioni web hanno incentivato negli ultimi anni la nascita di nuove tecnologie e metodologie di sviluppo più adatte a tale ambito. Di conseguenza, si è reso necessario adattare a queste nuove tecnologie le tecniche per l'attività di testing, fondamentale oramai anche per questa tipologia di applicazioni.
+
+Nell'ambito della tesi, si è posta particolare attenzione sul test di accettazione di applicazioni web, che interessa tutti i livelli architetturali del software, ma che è strettamente correlato alla verifica del funzionamento dell'interfaccia grafica, poiché essa costituisce il punto di accesso diretto alle funzionalità esposte all'utente finale.
+
+\subsubsection*{Obiettivi}
+
+L'obiettivo principale della tesi ha previsto la realizzazione di uno strumento per automatizzare la definizione e l'esecuzione di test di accettazione per applicazioni web. 
+
+All'inizio della trattazione sono state esposte in sintesi le principali tipologie di classificazione dei test, secondo i dettami dell'ingegneria del software. Il criterio di suddivisione adottato considera il livello di astrazione a cui operano i test, che varia partendo dagli unit test effettuati sui moduli in isolamento, ai functional test eseguiti per verificare l'integrazione dei componenti, fino ad arrivare ai test di accettazione. Questi ultimi cercano di assicurare che il software in esame rispetti i requisiti dettati dal committente. Ognuno di questi livelli presenta differenti obiettivi e richiede pertanto l'uso di tecniche specifiche.  
+
+Prima di iniziare la realizzazione del software, si è svolta una fase preliminare di analisi degli strumenti di testing esistenti, in modo da stabilire lo stato dell'arte per l'ambito di interesse. Tale analisi ha inoltre evidenziato i punti di forza e le debolezze dei progetti esaminati, utilizzati poi come criteri di partenza. Tra gli strumenti open source presi in considerazione, Selenium si è rivelato essere il più interessante dal punto di vista tecnologico ed è stato utilizzato spesso come metro di paragone durante il progetto.
+
+Successivamente, si è scelto di realizzare un software in grado di acquisire automaticamente una sequenza di operazioni svolte dall'utente durante l'uso dell'applicativo web, accompagnate da azioni di verifica per accertarne il corretto funzionamento, e di riprodurle in un secondo momento tramite una simulazione. 
+
+Rispetto agli strumenti analizzati, il software proposto si propone due obiettivi principali. 
+
+Il primo obiettivo consiste nell'implementazione di un sistema che assista l'utente nell'attività di testing, generando automaticamente i selettori necessari ad individuare gli elementi di interesse della pagina web, sia per la registrazione degli eventi, sia per le verifiche da effettuare. La scelta di un selettore adatto è infatti uno dei punti chiave per assicurare ai test una certa flessibilità alle modifiche che inevitabilmente verranno apportate sia nel breve che nel lungo periodo all'applicazione web in esame, durante lo sviluppo incrementale. Inoltre, è una delle attività che richiedono più tempo, poiché senza un supporto automatico è necessario analizzare manualmente il DOM di ogni pagina per stabilire un selettore adatto. In mancanza di un criterio obiettivo inoltre i risultati di questa operazione dipendono in maniera completa dall'esperienza e dalla capacità di valutazione dell'utente.
+
+Il secondo obiettivo consiste invece nel permettere l'uso dello strumento anche alle figure coinvolte nel progetto che non possiedono competenze tecniche riguardanti HTML, CSS ed XPath. Gli strumenti già esistenti infatti richiedono in molti casi l'inserimento manuale dei selettori, dei comandi di verifica o di alcuni accorgimenti particolari, specialmente se l'applicazione in esame fa uso della tecnologia AJAX. Tali requisiti consentono però l'utilizzo effettivo degli strumenti di testing solamente a chi possiede competenze da programmatore. 
+
+Se ciò è inevitabile per alcune tipologie di test, come gli unit test o i functional test, per il caso dei test di accettazione è invece più opportuno ed efficace che essi possano essere definiti ed eseguiti in maniera autonoma dal committente del software in esame, che ne stabilisce i requisiti necessari.
+
+\subsubsection*{Tecnologie utilizzate}
+
+L'applicazione proposta è stata sviluppata utilizzando il linguaggio Python e il framework PyQt per l'interfaccia grafica, che ha consentito la compatibilità nativa con i maggiori sistemi operativi (Windows, Linux, OSX). Inoltre i moduli iniettati all'interno delle pagine web sono stati realizzati in Javascript, con l'ausilio della libreria jQuery.
+
+L'approccio proposto esplora nuove possibilità anche dal punto di vista tecnologico. In fase di acquisizione dei test, tutti gli strumenti presi in esame devono interoperare con un'istanza del browser eseguita in un processo separato e sono pertanto soggetti a problematiche e limitazioni dovute alla comunicazione tra processi. Per ovviare a questi problemi, si è costretti a ricorrere ad un'architettura complessa, che ha richiesto nella maggior parte dei casi un server HTTP apposito, un socket locale ed un protocollo di comunicazione tra il server e un'estensione del browser. 
+
+Sebbene questa architettura costituisca un buon punto di partenza in fase di riproduzione dei test per pilotare browser differenti, può risultare limitante in fase di acquisizione. Lo strumento realizzato sfrutta il motore di rendering WebKit e lo integra all'interno dell'applicazione stessa tramite il framework PyQt. In questo modo si è dimostrato possibile comunicare in maniera decisamente più semplice con le pagine web da esaminare, semplificando l'architettura necessaria in fase di acquisizione.
+
+Uno dei punti di maggiore interesse riscontrati nell'implementazione risiede proprio nella facilità di interazione tra la parte di applicazione desktop e l'applicazione web eseguita all'interno del componente QWebKit. Il meccanismo QtWebKitBridge permette infatti di stabilire un canale di comunicazione bidirezionale con l'interprete Javascript e di mappare oggetti di tipo QObject, definiti in Python, con oggetti Javascript accessibili nel contesto della pagina web.
+
+\subsubsection*{Algoritmi di generazione dei selettori}
+
+I nodi che compongono la struttura ad albero di una pagina web (DOM) sono identificabili tramite un selettore. Siccome in fase di simulazione del test è necessario accedere agli elementi interessati sia dalle interazioni dell'utente, sia dalle verifiche definite, è fondamentale che nel test siano specificati selettori corretti e sufficientemente flessibili nell'ottica delle potenziali modifiche che l'interfaccia web potrà subire. Ciò è necessario affinché i test siano realmente funzionali, poiché un loro continuo adattamento risulterebbe in un notevole spreco di risorse e di tempo, facendone di fatto perdere l'utilità pratica.
+
+Dopo aver presentato alcuni degli schemi tipici di variazione nella struttura del DOM, all'interno dello strumento realizzato si è implementato un algoritmo di generazione automatica dei selettori CSS. Tale algoritmo sfrutta per quanto possibile le informazioni semantiche presenti nel markup HTML della pagina, oltre ad un certo principio di località delle modifiche, apprezzato in maniera empirica osservando l'evoluzione della struttura di alcune applicazioni web.
+
+Grazie a questo sistema, l'utilizzatore può selezionare in maniera completamente visiva gli elementi della pagina sui quali effettuare le verifiche, a differenza di quanto accade negli altri strumenti analizzati. Siccome la scelta dei selettori più adatti è automatica, i test di accettazione possono essere definiti in autonomia dal committente, senza che siano richieste competenze tecniche. Se l'utilizzatore invece le possiede, i selettori proposti costituiscono un valido suggerimento della strategia da adottare per rendere i test più mantenibili e resistenti alle modifiche strutturali delle pagine.  
+
+In aggiunta, è stato implementato un ulteriore algoritmo per generare selettori alternativi a quello di partenza, con un grado di specificità minore. Tramite questo meccanismo, si è cercato di fornire una maggiore flessibilità anche nella fase di esecuzione per alcune tipologie di verifiche particolarmente adatte.
+
+\subsubsection*{Un caso d'uso pratico: Wordpress}
+
+Gli algoritmi proposti sono corredati da una serie di unit test, definiti tramite il framework QUnit, che ne documentano il comportamento in alcuni scenari di interesse. Tuttavia, per verificare il funzionamento del software sviluppato in un caso d'uso reale, è stata definita una serie di test su di un'applicazione web già esistente. La scelta è ricaduta sulla piattaforma di pubblicazione Wordpress, poiché l'impostazione grafica della sezione amministrativa rappresenta un buon campione di quelle che sono le funzionalità presenti in sistemi analoghi sul web.
+
+Al fine di verificare la flessibilità dei test acquisiti, essi sono stati rieseguiti su di una versione di Wordpress successiva rispetto a quella di partenza usata per la registrazione, nella quale sono presenti alcune modifiche all'interfaccia che però lasciano inalterate le funzionalità di base presenti. 
+
+Lo strumento proposto ha permesso di definire i test in maniera più rapida rispetto ad altre soluzioni analizzate ed è stato necessario modificare solo in minima parte i test acquisiti affinché venissero eseguiti correttamente su entrambe le versioni di Wordpress in esame, nonostante le variazioni apportate al DOM delle pagine.
+
+\end{document}
