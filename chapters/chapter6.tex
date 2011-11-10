@@ -20,7 +20,7 @@ In un secondo momento, lo stesso test definito in precedenza è stato riprodotto
 
 In questo modo è stato possibile fare una prima valutazione pratica circa la resistenza dei test registrati ai cambiamenti nel DOM delle pagine, considerando un caso reale di evoluzione nell'interfaccia e non semplicemente una serie di modifiche studiate ad hoc.
 
-\section{Descrizione del primo esperimento}
+\section{Prima fase dell'esperimento}
 
 \subsection{Preparazione dello strumento e definizione del punto di partenza per il test}
 
@@ -73,7 +73,7 @@ Per questa asserzione, il selettore restituito risulta essere \verb|#wpbody-cont
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=\textwidth]{images/wp_tour/7_dashboard_h2_firebug.png}
+\includegraphics{images/wp_tour/7_dashboard_h2_firebug.png}
 \caption{Porzione dell'albero del DOM per il titolo "Dashboard"}
 \label{fig:dashboardH2DOM}
 \end{center}
@@ -140,7 +140,7 @@ Per effettuare la ricerca si registra l'azione di click sul pulsante "Filter". N
 \end{center}
 \end{figure}
 
-\section{Descrizione del primo esperimento}
+\section{Seconda fase dell'esperimento}
 
 La seconda fase dell'esperimento ha permesso di verificare il grado di flessibilità raggiunto dai test definiti attraverso lo strumento realizzato. Per fare ciò si è rieseguito il test su una versione successiva della piattaforma Wordpress. Per questa seconda prova è stata usata la versione 3.1.3, che durante la fase di progetto risultava essere la più recente, poiché essa presenta alcune modifiche nel layout del pannello di amministrazione rispetto alle versioni 2.X, mentre le funzionalità rimangono pressoché inalterate.
 
@@ -168,6 +168,6 @@ L'algoritmo di generazione dei selettori riconosce questo schema tramite un'espr
 
 Selettore generato senza modifiche:  \verb|#post-62 a:icontains(post+title)| 
 \newline
-Selettore generato tenendo conto dell'attributi id generato dinamicamente:  \verb|#the-list a:icontains(post+title)| 
+Selettore generato tenendo conto dell'attributi id generato dinamicamente: \newline \verb|#the-list a:icontains(post+title)| 
 
 Pertanto, è stato possibile eseguire lo stesso test sulle due versioni nonostante esse utilizzino due database separati, con valori differenti per le chiavi primarie dei record.

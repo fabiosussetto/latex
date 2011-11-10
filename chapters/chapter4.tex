@@ -134,7 +134,7 @@ Nel caso in cui il metodo di attesa venga invocato senza che sia effettivamente 
 
 La soluzione adottata non ha presentato particolari problemi di prestazioni pur implementando di fatto una forma di "busy form of waiting", poiché i tempi di attesa sono generalmente molto brevi e sono comunque controllati da un timeout. Una soluzione più elegante da questo punto di vista potrebbe contemplare l'utilizzo della programmazione concorrente mediante thread, che aggiungerebbe però un ulteriore livello di complessità all'applicazione senza aggiungere nulla però agli scopi finali.
 
-L'effetto collaterale indesiderato consiste però nel fatto che, utilizzando il ciclo di attesa, l'interfaccia dell'applicazione smette di essere reattiva all'interazione con l'utente. Per superare questo ostacolo, si è fatto uso del metodo \verb|QCoreApplication.processEvents|, con il quale si impone manualmente al processo di processare gli eventi in coda in arrivo dal sistema operativo sottostante. Normalmente il loop degli eventi, tipico di ogni applicazione dotata di interfaccia, viene gestito internamente dal framework Qt, ma in questo caso è stato indispensabile interagirci direttamente.
+L'effetto collaterale indesiderato consiste però nel fatto che, utilizzando il ciclo di attesa, l'interfaccia dell'applicazione smette di essere reattiva all'interazione con l'utente. Per superare questo ostacolo, si è fatto uso del metodo \newline \verb|QCoreApplication.processEvents|, con il quale si impone manualmente al processo di processare gli eventi in coda in arrivo dal sistema operativo sottostante. Normalmente il loop degli eventi, tipico di ogni applicazione dotata di interfaccia, viene gestito internamente dal framework Qt, ma in questo caso è stato indispensabile interagirci direttamente.
 
 Il metodo \verb|wait_load| viene invocato automaticamente quando viene simulata un'azione di click su di un elemento. Se il click non provoca il caricamento di una pagina o una richiesta asincrona, l'applicazione non si pone in stato di attesa. In questo modo il fase di registrazione non è necessario preoccuparsi di questo dettaglio tecnico.
 
@@ -154,7 +154,7 @@ Sono da tenere poi presenti le seguenti condizioni aggiuntive. In primo luogo, n
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=\textwidth]{images/ajax_sync.png}
+\includegraphics[width=\textwidth]{images/ajax_sync.eps}
 \caption{Sequence diagram per richieste AJAX parallele}
 \label{fig:ajaxSequence}
 \end{center}
@@ -179,7 +179,7 @@ Nel caso di richiese AJAX in parallelo, siccome il simulatore ne attende in auto
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=\textwidth]{images/ajax_sync_for_simulation.png}
+\includegraphics[width=\textwidth]{images/ajax_sync_for_simulation.eps}
 \caption{Sincronizzazione di richieste parallele durante la simulazione}
 \label{fig:ajaxParallelSimulation}
 \end{center}
@@ -261,7 +261,7 @@ I tre metodi indispensabili sono il metodo \verb|execute|, che deve contenere la
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=\textwidth]{images/uml_actions.png}
+\includegraphics[width=\textwidth]{images/uml_actions.eps}
 \caption{UML diagram per il package delle azioni}
 \label{fig:actionUML}
 \end{center}
@@ -318,7 +318,7 @@ Grazie a questi accorgimenti, i passi registrati dallo strumento sono comprensib
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=\textwidth]{images/action_notes.png}
+\includegraphics{images/action_notes.eps}
 \caption{Lista delle azioni registrate mostrata all'utente nell'interfaccia grafica}
 \label{fig:actionNotes}
 \end{center}
@@ -334,7 +334,7 @@ Uno scenario tipico viene rappresentato in figura ~\ref{fig:liveEventCase}, dove
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=\textwidth]{images/live_event_case.png}
+\includegraphics[width=\textwidth]{images/live_event_case.eps}
 \caption{Esempio di scenario che contempla la modifica del DOM}
 \label{fig:liveEventCase}
 \end{center}
@@ -380,7 +380,7 @@ In questo modo la simulazione è decisamente più accurata, poiché il component
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=\textwidth]{images/native_events.png}
+\includegraphics[width=\textwidth]{images/native_events.eps}
 \caption{Flusso degli eventi per la simulazione nativa}
 \label{fig:nativeEvents}
 \end{center}

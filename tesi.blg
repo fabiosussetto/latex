@@ -1,0 +1,76 @@
+This is BibTeX, Version 0.99d (TeX Live 2011)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: tesi.aux
+A level-1 auxiliary file: chapters/chapter1.aux
+A level-1 auxiliary file: chapters/chapter2.aux
+A level-1 auxiliary file: chapters/chapter3.aux
+A level-1 auxiliary file: chapters/chapter4.aux
+A level-1 auxiliary file: chapters/chapter5.aux
+A level-1 auxiliary file: chapters/chapter6.aux
+The style file: plainnat.bst
+Database file #1: biblio.bib
+Warning--entry type for "html5Data" isn't style-file defined
+--line 12 of file biblio.bib
+Warning--entry type for "pageObject" isn't style-file defined
+--line 21 of file biblio.bib
+Warning--entry type for "byeXml" isn't style-file defined
+--line 30 of file biblio.bib
+Warning--entry type for "suarezCss" isn't style-file defined
+--line 39 of file biblio.bib
+Warning--entry type for "martinDynamic" isn't style-file defined
+--line 49 of file biblio.bib
+Warning--entry type for "resigXpathCss" isn't style-file defined
+--line 58 of file biblio.bib
+Warning--entry type for "builtwith" isn't style-file defined
+--line 67 of file biblio.bib
+Warning--entry type for "sameOrigin" isn't style-file defined
+--line 105 of file biblio.bib
+Warning--entry type for "ajaxGarrett" isn't style-file defined
+--line 137 of file biblio.bib
+Warning--empty publisher in architectureOfOpenSource
+Warning--empty year in builtwith
+Warning--empty journal in dynamicStaticPattern
+Warning--empty journal in gerrardGUI
+Warning--empty journal in guiTestGeneration
+You've used 19 entries,
+            2773 wiz_defined-function locations,
+            699 strings with 7228 characters,
+and the built_in function-call counts, 6128 in all, are:
+= -- 505
+> -- 272
+< -- 16
++ -- 100
+- -- 81
+* -- 362
+:= -- 967
+add.period$ -- 57
+call.type$ -- 19
+change.case$ -- 79
+chr.to.int$ -- 19
+cite$ -- 43
+duplicate$ -- 333
+empty$ -- 602
+format.name$ -- 104
+if$ -- 1281
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 15
+newline$ -- 103
+num.names$ -- 76
+pop$ -- 232
+preamble$ -- 1
+purify$ -- 65
+quote$ -- 0
+skip$ -- 264
+stack$ -- 0
+substring$ -- 38
+swap$ -- 16
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 184
+warning$ -- 5
+while$ -- 57
+width$ -- 0
+write$ -- 230
+(There were 14 warnings)

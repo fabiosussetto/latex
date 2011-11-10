@@ -41,7 +41,7 @@ Le modifiche rappresentate non pregiudicano in linea di massima il funzionamento
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics{images/dom_mod.png}
+\includegraphics[width=0.7\textwidth]{images/dom_mod.eps}
 \caption{Principali schemi di modifica del DOM}
 \label{fig:domMod}
 \end{center}
@@ -61,7 +61,7 @@ Nel caso banale in cui il nodo da selezionare possieda egli stesso un id, il sot
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics{images/id_partition.png}
+\includegraphics{images/id_partition.eps}
 \caption{Identificazione del sottoalbero a partire dall'ID}
 \label{fig:idPartition}
 \end{center}
@@ -127,7 +127,7 @@ La prima fase viene realizzata attraverso la funzione \verb|_traverse|. Come par
 \item Viene prodotto il frammento del selettore che identifica l'elemento corrente:
 	\begin{enumerate}
 		\item Se per l'elemento corrente è stato definito l'attributo id, questo viene aggiunto  in fronte al selettore costruito fino ad ora.
-		\item Se l'elemento è di tipo \verb|a|, viene preposto il frammento \verb|a:icontains(<contenuto del tag>)|, che seleziona il nodo contenente il testo specificato nelle parentesi dello pseudo-selettore jQuery.
+		\item Se l'elemento è di tipo \verb|a|, viene preposto il frammento \verb|a:icontains()|, che seleziona il nodo contenente il testo specificato nelle parentesi dello pseudo-selettore jQuery.
 		\item Se l'elemento possiede uno o più attributi \verb|role|, viene aggiunto un frammento del tipo \verb|<tipotag>[role=<role>]|.
 		\item Se l'elemento è un widget di input e possiede l'attributo \verb|name|, si aggiunge un frammento del tipo \verb|<tipotag>[name=<name>]|
 		\item Se l'elemento è una label è presente l'attributo \verb|for| e nella pagina esiste un nodo con attributo id uguale al valore dell'attributo for, si aggiunge un frammento del tipo \verb|<tipotag>[for=<for>]| 
@@ -185,7 +185,7 @@ Selettore finale:  \verb|#content p|
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics{images/dom_examples/wrap.png}
+\includegraphics[width=\textwidth]{images/dom_examples/wrap.eps}
 \end{center}
 \end{figure}
 
@@ -199,7 +199,7 @@ Selettore finale:  \verb|#menu a:icontains(item3)|
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics{images/dom_examples/menu_add_item.png}
+\includegraphics[width=\textwidth]{images/dom_examples/menu_add_item.eps}
 \end{center}
 \end{figure}
 
@@ -219,7 +219,7 @@ Selettore finale:  \verb|#ordered li:eq(0) a:icontains(item 1)|
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics{images/dom_examples/ordered_menu.png}
+\includegraphics[width=\textwidth]{images/dom_examples/ordered_menu.eps}
 \end{center}
 \end{figure}
 
@@ -235,7 +235,7 @@ Selettore finale:  \verb|#test input[name=title]|
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics{images/dom_examples/form1.png}
+\includegraphics[width=\textwidth]{images/dom_examples/form1.eps}
 \end{center}
 \end{figure}
 

@@ -1,18 +1,24 @@
-\begin{thebibliography}{17}
+\begin{thebibliography}{19}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[bui()]{builtwith}
-jquery usage trends.
-\newblock URL \url{http://trends.builtwith.com/javascript/JQuery}.
+\bibitem[Bewick(2010)]{html5Data}
+Chris Bewick.
+\newblock Html5 custom data attributes, 2010.
+\newblock URL \url{http://html5doctor.com/html5-custom-data-attributes/}.
 
 \bibitem[Brown and Wilson(2011)]{architectureOfOpenSource}
 A.~Brown and G.~Wilson.
 \newblock \emph{The Architecture of Open Source Applications}.
 \newblock 2011.
+
+\bibitem[Builtwith.com()]{builtwith}
+Builtwith.com.
+\newblock jquery usage trends.
+\newblock URL \url{http://trends.builtwith.com/javascript/JQuery}.
 
 \bibitem[Costanza(2004)]{dynamicStaticPattern}
 Pascal Costanza.
@@ -69,8 +75,8 @@ Atif~M. Memon, Martha~E. Pollack, and Mary~Lou Soffa.
 
 \bibitem[Ordo{\~n}ez(2011)]{suarezCss}
 Santiago~Suarez Ordo{\~n}ez.
-\newblock Css vs xpath locators: An in-depth comparison \& why the former is the
-  way to go, 2011.
+\newblock Css vs xpath locators: An in-depth comparison \& why the former is
+  the way to go, 2011.
 \newblock URL
   \url{http://saucelabs.com/blog/index.php/2011/05/why-css-locators-are-the-way-to-go-vs-xpath/}.
 
@@ -84,6 +90,11 @@ John~K. Ousterhout.
 John Resig.
 \newblock Xpath and css selectors, 2005.
 \newblock URL \url{http://ejohn.org/blog/xpath-css-selectors/}.
+
+\bibitem[Stewart(2011)]{pageObject}
+Simon~M. Stewart.
+\newblock Page objects, 2011.
+\newblock URL \url{http://code.google.com/p/selenium/wiki/PageObjects}.
 
 \bibitem[Summerfield(2007)]{summerfield}
 Mark Summerfield.

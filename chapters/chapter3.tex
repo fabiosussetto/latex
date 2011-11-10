@@ -1,4 +1,4 @@
-\chapter{Tool}
+\chapter{Realizzazione dello strumento}
 
 \section{Obiettivi}
 
@@ -99,7 +99,7 @@ Senza scendere eccessivamente nel dettaglio, SIP funziona processando una serie 
 
 Secondo diverse fonti, la perdita in termini di prestazioni nell'uso di Python rispetto ad altri linguaggi compilati, come C++ e Java, è ampiamente ripagata in termini di un minore tempo di sviluppo, di un minor numero di linee di codice prodotte e di conseguenza un codice più mantenibile nel lungo periodo. Questa affermazione è valida in maniera generica per molti dei linguaggi di scripting più diffusi, rispetto alle controparti compilate. 
 
-Come dimostrazione, è interessante osservare le statistiche effettuate in \cite{Ousterhout} su applicazioni che operano in diversi ambiti, sviluppate prima in C o in C++ e poi successivamente riscritte in Perl o Tcl, da persone diverse. In tutti i casi riportati, le versioni in C/C++ hanno richiesto un maggior numero di linee di codice, con un fattore che varia dal 2 al 60. Anche le misure sui tempi di realizzazione seguono lo stesso trend. Si noti anche che l'articolo di riferimento risale al 1998 e oggi linguaggi dinamici come Python o Ruby possono vantare una comunità di sviluppatori e un insieme di librerie esistenti decisamente più ampi e più maturi. 
+Come dimostrazione, è interessante osservare le statistiche effettuate in \citet{Ousterhout} su applicazioni che operano in diversi ambiti, sviluppate prima in C o in C++ e poi successivamente riscritte in Perl o Tcl, da persone diverse. In tutti i casi riportati, le versioni in C/C++ hanno richiesto un maggior numero di linee di codice, con un fattore che varia dal 2 al 60. Anche le misure sui tempi di realizzazione seguono lo stesso trend. Si noti anche che l'articolo di riferimento risale al 1998 e oggi linguaggi dinamici come Python o Ruby possono vantare una comunità di sviluppatori e un insieme di librerie esistenti decisamente più ampi e più maturi. 
 
 Un ulteriore ed interessante confronto tra linguaggi statici e dinamici su alcuni pattern comuni di programmazione viene esposto in \cite{dynamicStaticPattern}, mentre in \cite{martinDynamic} si argomenta che i vantaggi derivanti dal type checking possono essere limitati se si adotta un'adeguata strategia di unit testing.
 
@@ -156,7 +156,7 @@ Una volta che l'utente ha sottomesso la modifica, il delegate acquisisce il dato
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics{images/mvd.png}
+\includegraphics{images/mvd.eps}
 \caption{Diagramma delle interazioni nel pattern MVD in Qt}
 \label{default}
 \end{center}

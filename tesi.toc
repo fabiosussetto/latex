@@ -22,8 +22,8 @@
 \contentsline {subsection}{\numberline {2.1.1}Selenium IDE}{18}{subsection.2.1.1}
 \contentsline {subsection}{\numberline {2.1.2}Selenium WebDriver}{20}{subsection.2.1.2}
 \contentsline {section}{\numberline {2.2}Windmill}{22}{section.2.2}
-\contentsline {section}{\numberline {2.3}Watir}{24}{section.2.3}
-\contentsline {chapter}{\numberline {3}Tool}{28}{chapter.3}
+\contentsline {section}{\numberline {2.3}Watir}{26}{section.2.3}
+\contentsline {chapter}{\numberline {3}Realizzazione dello strumento}{28}{chapter.3}
 \contentsline {section}{\numberline {3.1}Obiettivi}{28}{section.3.1}
 \contentsline {subsection}{\numberline {3.1.1}Facilit\IeC {\`a} di utilizzo}{30}{subsection.3.1.1}
 \contentsline {subsection}{\numberline {3.1.2}Robustezza dei test}{31}{subsection.3.1.2}
@@ -56,46 +56,45 @@
 \contentsline {subsubsection}{Comunicazione tra Python e Javascript}{59}{section*.15}
 \contentsline {subsection}{\numberline {4.2.1}Sincronizzazione tra richieste HTTP e flusso di simulazione}{59}{subsection.4.2.1}
 \contentsline {subsection}{\numberline {4.2.2}Simulazione e richieste AJAX}{61}{subsection.4.2.2}
-\contentsline {subsection}{\numberline {4.2.3}Riproduzione delle azioni}{64}{subsection.4.2.3}
-\contentsline {section}{\numberline {4.3}Modulo actions}{66}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Implementazione del Model nel paradigma MVD}{66}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Salvataggio dei test in formato XML}{68}{subsection.4.3.2}
-\contentsline {subsubsection}{Azioni ed asserzioni}{70}{section*.16}
-\contentsline {subsection}{\numberline {4.3.3}La registrazione delle azioni utente}{72}{subsection.4.3.3}
+\contentsline {subsection}{\numberline {4.2.3}Riproduzione delle azioni}{65}{subsection.4.2.3}
+\contentsline {section}{\numberline {4.3}Modulo actions}{65}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Implementazione del Model nel paradigma MVD}{65}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Salvataggio dei test in formato XML}{67}{subsection.4.3.2}
+\contentsline {subsubsection}{Azioni ed asserzioni}{68}{section*.16}
+\contentsline {subsection}{\numberline {4.3.3}La registrazione delle azioni utente}{71}{subsection.4.3.3}
 \contentsline {subsection}{\numberline {4.3.4}DOM event model}{72}{subsection.4.3.4}
-\contentsline {subsection}{\numberline {4.3.5}Registrazione degli eventi}{73}{subsection.4.3.5}
-\contentsline {subsection}{\numberline {4.3.6}Riproduzione degli eventi}{76}{subsection.4.3.6}
+\contentsline {subsection}{\numberline {4.3.5}Registrazione degli eventi}{72}{subsection.4.3.5}
+\contentsline {subsection}{\numberline {4.3.6}Riproduzione degli eventi}{75}{subsection.4.3.6}
 \contentsline {subsubsection}{Eventi Javascript}{76}{section*.17}
-\contentsline {subsubsection}{Eventi nativi}{79}{section*.18}
-\contentsline {chapter}{\numberline {5}Algoritmi e strategie di selezione degli elementi}{83}{chapter.5}
-\contentsline {section}{\numberline {5.1}Considerazioni iniziali e prerequisiti}{83}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Validazione della sintassi HTML}{83}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}Utilizzo dei tag HTML in maniera semantica}{84}{subsection.5.1.2}
-\contentsline {section}{\numberline {5.2}Idee ed ipotesi di partenza}{85}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Schemi tipici di variazioni nel DOM}{85}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {5.2.2}L'importanza dell'attributo id}{85}{subsection.5.2.2}
-\contentsline {subsection}{\numberline {5.2.3}L'attributo role}{89}{subsection.5.2.3}
-\contentsline {subsection}{\numberline {5.2.4}Selettori per elementi particolari}{89}{subsection.5.2.4}
-\contentsline {subsection}{\numberline {5.2.5}Descrizione dell'algoritmo}{91}{subsection.5.2.5}
-\contentsline {subsubsection}{Prima fase: percorso bottom-up}{91}{section*.19}
-\contentsline {subsubsection}{Seconda fase: ottimizzazione del selettore}{93}{section*.20}
-\contentsline {subsection}{\numberline {5.2.6}Esempi pratici di funzionamento}{94}{subsection.5.2.6}
-\contentsline {subsubsection}{Aggiunta di elementi contenitori multipli}{94}{section*.21}
-\contentsline {subsubsection}{Aggiunta di una nuova voce in un men\IeC {\`u} a pi\IeC {\`u} livelli}{95}{section*.22}
-\contentsline {subsubsection}{Utilizzo semantico di una lista ordinata}{96}{section*.23}
-\contentsline {subsubsection}{Campi di input}{96}{section*.24}
-\contentsline {subsection}{\numberline {5.2.7}Unit test dell'algoritmo}{98}{subsection.5.2.7}
-\contentsline {section}{\numberline {5.3}Algoritmo di generazione dei selettori alternativi}{98}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}Principi di base e funzionamento}{99}{subsection.5.3.1}
-\contentsline {chapter}{\numberline {6}Wordpress: applicazione pratica dello strumento realizzato}{102}{chapter.6}
-\contentsline {section}{\numberline {6.1}Descrizione del primo esperimento}{103}{section.6.1}
-\contentsline {subsection}{\numberline {6.1.1}Preparazione dello strumento e definizione del punto di partenza per il test}{103}{subsection.6.1.1}
-\contentsline {subsection}{\numberline {6.1.2}Pagina di login}{103}{subsection.6.1.2}
-\contentsline {subsection}{\numberline {6.1.3}Dashboard}{106}{subsection.6.1.3}
-\contentsline {subsection}{\numberline {6.1.4}Pagina per la pubblicazione di un nuovo articolo}{108}{subsection.6.1.4}
-\contentsline {subsubsection}{Click nel men\IeC {\`u} principale}{108}{section*.25}
-\contentsline {subsubsection}{Creazione ed assegnamento di una nuova categoria via Ajax}{109}{section*.26}
-\contentsline {subsubsection}{Verifica dell'inserimento e del filtro di ricerca}{110}{section*.27}
-\contentsline {section}{\numberline {6.2}Descrizione del primo esperimento}{111}{section.6.2}
-\contentsline {chapter}{\numberline {7}Considerazioni finali}{114}{chapter.7}
-\contentsline {chapter}{Bibliografia}{117}{chapter*.28}
+\contentsline {subsubsection}{Eventi nativi}{77}{section*.18}
+\contentsline {chapter}{\numberline {5}Algoritmi e strategie di selezione degli elementi}{81}{chapter.5}
+\contentsline {section}{\numberline {5.1}Considerazioni iniziali e prerequisiti}{81}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Validazione della sintassi HTML}{81}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Utilizzo dei tag HTML in maniera semantica}{82}{subsection.5.1.2}
+\contentsline {section}{\numberline {5.2}Idee ed ipotesi di partenza}{83}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Schemi tipici di variazioni nel DOM}{83}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}L'importanza dell'attributo id}{83}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}L'attributo role}{87}{subsection.5.2.3}
+\contentsline {subsection}{\numberline {5.2.4}Selettori per elementi particolari}{87}{subsection.5.2.4}
+\contentsline {subsection}{\numberline {5.2.5}Descrizione dell'algoritmo}{89}{subsection.5.2.5}
+\contentsline {subsubsection}{Prima fase: percorso bottom-up}{89}{section*.19}
+\contentsline {subsubsection}{Seconda fase: ottimizzazione del selettore}{91}{section*.20}
+\contentsline {subsection}{\numberline {5.2.6}Esempi pratici di funzionamento}{92}{subsection.5.2.6}
+\contentsline {subsubsection}{Aggiunta di elementi contenitori multipli}{92}{section*.21}
+\contentsline {subsubsection}{Aggiunta di una nuova voce in un men\IeC {\`u} a pi\IeC {\`u} livelli}{93}{section*.22}
+\contentsline {subsubsection}{Utilizzo semantico di una lista ordinata}{94}{section*.23}
+\contentsline {subsubsection}{Campi di input}{95}{section*.24}
+\contentsline {subsection}{\numberline {5.2.7}Unit test dell'algoritmo}{95}{subsection.5.2.7}
+\contentsline {section}{\numberline {5.3}Algoritmo di generazione dei selettori alternativi}{96}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Principi di base e funzionamento}{96}{subsection.5.3.1}
+\contentsline {chapter}{\numberline {6}Wordpress: applicazione pratica dello strumento realizzato}{99}{chapter.6}
+\contentsline {section}{\numberline {6.1}Prima fase dell'esperimento}{100}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Preparazione dello strumento e definizione del punto di partenza per il test}{100}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}Pagina di login}{100}{subsection.6.1.2}
+\contentsline {subsection}{\numberline {6.1.3}Dashboard}{103}{subsection.6.1.3}
+\contentsline {subsection}{\numberline {6.1.4}Pagina per la pubblicazione di un nuovo articolo}{105}{subsection.6.1.4}
+\contentsline {subsubsection}{Click nel men\IeC {\`u} principale}{105}{section*.25}
+\contentsline {subsubsection}{Creazione ed assegnamento di una nuova categoria via Ajax}{106}{section*.26}
+\contentsline {subsubsection}{Verifica dell'inserimento e del filtro di ricerca}{107}{section*.27}
+\contentsline {section}{\numberline {6.2}Seconda fase dell'esperimento}{108}{section.6.2}
+\contentsline {chapter}{\numberline {7}Considerazioni finali}{111}{chapter.7}

@@ -17,7 +17,7 @@
 \BOOKMARK [2][-]{subsection.2.1.2}{Selenium WebDriver}{section.2.1}% 17
 \BOOKMARK [1][-]{section.2.2}{Windmill}{chapter.2}% 18
 \BOOKMARK [1][-]{section.2.3}{Watir}{chapter.2}% 19
-\BOOKMARK [0][-]{chapter.3}{Tool}{}% 20
+\BOOKMARK [0][-]{chapter.3}{Realizzazione dello strumento}{}% 20
 \BOOKMARK [1][-]{section.3.1}{Obiettivi}{chapter.3}% 21
 \BOOKMARK [2][-]{subsection.3.1.1}{Facilit\340 di utilizzo}{section.3.1}% 22
 \BOOKMARK [2][-]{subsection.3.1.2}{Robustezza dei test}{section.3.1}% 23
@@ -63,11 +63,10 @@
 \BOOKMARK [1][-]{section.5.3}{Algoritmo di generazione dei selettori alternativi}{chapter.5}% 63
 \BOOKMARK [2][-]{subsection.5.3.1}{Principi di base e funzionamento}{section.5.3}% 64
 \BOOKMARK [0][-]{chapter.6}{Wordpress: applicazione pratica dello strumento realizzato}{}% 65
-\BOOKMARK [1][-]{section.6.1}{Descrizione del primo esperimento}{chapter.6}% 66
+\BOOKMARK [1][-]{section.6.1}{Prima fase dell'esperimento}{chapter.6}% 66
 \BOOKMARK [2][-]{subsection.6.1.1}{Preparazione dello strumento e definizione del punto di partenza per il test}{section.6.1}% 67
 \BOOKMARK [2][-]{subsection.6.1.2}{Pagina di login}{section.6.1}% 68
 \BOOKMARK [2][-]{subsection.6.1.3}{Dashboard}{section.6.1}% 69
 \BOOKMARK [2][-]{subsection.6.1.4}{Pagina per la pubblicazione di un nuovo articolo}{section.6.1}% 70
-\BOOKMARK [1][-]{section.6.2}{Descrizione del primo esperimento}{chapter.6}% 71
+\BOOKMARK [1][-]{section.6.2}{Seconda fase dell'esperimento}{chapter.6}% 71
 \BOOKMARK [0][-]{chapter.7}{Considerazioni finali}{}% 72
-\BOOKMARK [0][-]{chapter*.28}{Bibliografia}{}% 73
